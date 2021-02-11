@@ -28,6 +28,13 @@ public class EnemySpawn : MonoBehaviour
 
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        InvokeRepeating("EnemySpawner", 0.5f, repeatRate);
+        Destroy(gameObject, LifeTime);
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+
     private void OnEnable()
     {
         if (OnDeathSpawn == true)
