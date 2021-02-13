@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Combo : MonoBehaviour
 {
-    List<string> animlist = new List<string>(new string[] { "animation1", "animation2", "animation3" });
+    List<string> animlist = new List<string>(new string[] { "Attack", "Attack2", "Attack3" });
     public Animator animator;
     public int combonum;
     public float reset;

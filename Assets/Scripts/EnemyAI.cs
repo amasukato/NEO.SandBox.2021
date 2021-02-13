@@ -14,6 +14,11 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
 
+    private Material matWhite;
+    private Material matDefault;
+    public Object explosionRef;
+    MeshRenderer mr;
+
     public Transform player;
 
     public LayerMask whatIsGround, whatISPlayer;
@@ -54,11 +59,14 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //stats = GetComponent<Combatant>();
         anim = GetComponent<Animator>();
+        mr = GetComponent<MeshRenderer>();
+        matWhite = Resources.Load("White", typeof(Material)) as Material;
+        matDefault = mr.material;
 
+        //explosionRef = Resources.Load("Explosion");
         //stats.TakeDamage += Knockback;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //check for sight and attack range
@@ -71,10 +79,6 @@ public class EnemyAI : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         //if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        if (HitPoints <= 0)
-        {
-            Dead();
-        }
     }
 
     private void Patroling()
@@ -135,25 +139,46 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("HitBox"))
+        if (other.gameObject.CompareTag("HitBox"))
         {
-            HitPoints -= 1;
+            HitPoints--;
+            mr.material = matWhite;
+
+            if (HitPoints <= 0)
+            {
+                Dead();
+            }
+            else
+            {
+                Invoke("ResetMaterial", .5f);
+            }
         }
+
     }
+
+    private void ResetMaterial()
+    {
+        mr.material = matDefault;
+    }
+
     public void TakeDamage(float damage)
     {
         HitPoints -= damage;
 
     }
 
-
     public void Dead()
     {
         //play dead_animation here
+        GameObject explosion = (GameObject)Instantiate(explosionRef);
+        explosion.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
+
         Destroy(gameObject); // add time until death
 
+
+        // To spawn enemies on dead
         if(OnEnemyKilled != null)
         {
             OnEnemyKilled();

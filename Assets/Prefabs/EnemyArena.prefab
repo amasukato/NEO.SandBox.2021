@@ -207,6 +207,8 @@ MonoBehaviour:
   attacker: {fileID: 0}
   anim: {fileID: 0}
   rb: {fileID: 0}
+  explosionRef: {fileID: 4776106181061124587, guid: e162c3e77a12e414daf447de3a3e53a9,
+    type: 3}
   player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
