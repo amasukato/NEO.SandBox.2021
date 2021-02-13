@@ -38,16 +38,33 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey)
-            Move();
+        /*if (Input.anyKey)
+            Move();*/
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (direction.magnitude >= 0.1)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            movDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            controller.Move(movDir.normalized * moveSpeed * Time.deltaTime);
+
+        }
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             Attack();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire2"))
         {
             StartCoroutine(Dash());
         }
