@@ -56,7 +56,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,7 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &104008100843651800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,7 +110,7 @@ GameObject:
   - component: {fileID: 104008102283807016}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +153,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -180,7 +177,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &104008102283807021
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,6 +203,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 104008102283807016}
+  attacker: {fileID: 0}
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  explosionRef: {fileID: 0}
   player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
@@ -214,9 +214,11 @@ MonoBehaviour:
   whatISPlayer:
     serializedVersion: 2
     m_Bits: 512
+  HitPoints: 3
+  MaxHitPoints: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
-  walkPoinRange: 5
+  walkPointRange: 0
   timeBetweenAttacks: 0
   sightRange: 12
   attackRange: 1

@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-
+    public GameObject[] enemies;
     public float totalTime;
 
-    public Text text;
+    public Text CountdownText;
+    public Text EnemyCountText;
 
     private float minutes;
     private float seconds;
@@ -44,17 +45,22 @@ public class PauseMenu : MonoBehaviour
                 Application.Quit();
 
             }
-
+        // Timer
         totalTime -= Time.deltaTime;
         minutes = (int)(totalTime / 60);
         seconds = (int)(totalTime % 60);
 
-        text.text = minutes.ToString() + " : " + seconds.ToString();
+        CountdownText.text = minutes.ToString() + " : " + seconds.ToString();
 
         if (totalTime <= 0)
         {
-            text.text = " Thank you for playing";
+            CountdownText.text = " Thank you for playing";
         }
+
+        // Enemy Counter
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        EnemyCountText.text = enemies.Length.ToString() + " Enemies left ";
     }
 
     void Resume()

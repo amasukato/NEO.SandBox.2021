@@ -2397,6 +2397,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6543032907195019029, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
       propertyPath: m_RootOrder
@@ -2675,6 +2680,83 @@ Transform:
   m_Father: {fileID: 885817862}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &62858124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62858127}
+  - component: {fileID: 62858126}
+  - component: {fileID: 62858125}
+  m_Layer: 5
+  m_Name: EnemyCountText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &62858125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62858124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &62858126
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62858124}
+  m_CullTransparentMesh: 0
+--- !u!224 &62858127
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62858124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1810607360}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -89.08, y: -25}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &68152345
 GameObject:
   m_ObjectHideFlags: 0
@@ -25797,6 +25879,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6543032907195019029, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
       propertyPath: m_RootOrder
@@ -30478,6 +30565,7 @@ RectTransform:
   - {fileID: 1363939710}
   - {fileID: 1690207304}
   - {fileID: 399794493}
+  - {fileID: 62858127}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30498,8 +30586,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ecf8bbe07dc3d488b0eb1aae231060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 60
-  text: {fileID: 399794491}
+  enemies: []
+  totalTime: 90
+  CountdownText: {fileID: 399794491}
+  EnemyCountText: {fileID: 62858125}
   PauseMenuUI: {fileID: 275022701}
   GameOverMenuUI: {fileID: 1690207303}
 --- !u!43 &1812319815
@@ -31462,7 +31552,6 @@ GameObject:
   - component: {fileID: 1832391836}
   - component: {fileID: 1832391835}
   - component: {fileID: 1832391834}
-  - component: {fileID: 1832391839}
   m_Layer: 0
   m_Name: AttackHitBox
   m_TagString: HitBox
@@ -31579,22 +31668,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832391832}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1832391839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832391832}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac91d04f69790b642a9e12afda30fe65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1832391834}
-  combonum: 3
-  reset: 0
-  resettime: 0
 --- !u!43 &1844423170
 Mesh:
   m_ObjectHideFlags: 0
@@ -34135,6 +34208,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6543032907195019029, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
       propertyPath: m_RootOrder
@@ -34885,6 +34963,7 @@ GameObject:
   - component: {fileID: 2124129533}
   - component: {fileID: 2124129539}
   - component: {fileID: 2124129540}
+  - component: {fileID: 2124129541}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -34934,7 +35013,7 @@ MonoBehaviour:
   turnSmoothTime: 0
   movDir: {x: 0, y: 0, z: 0}
   attackHitboxes:
-  - {fileID: 0}
+  - {fileID: 1832391836}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!136 &2124129535
@@ -35056,6 +35135,22 @@ MonoBehaviour:
   status: 0
   knockbackForce: 5
   knockbackResist: 0
+--- !u!114 &2124129541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124129532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac91d04f69790b642a9e12afda30fe65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1832391834}
+  combonum: 0
+  reset: 2.5
+  resettime: 5
 --- !u!43 &2125138142
 Mesh:
   m_ObjectHideFlags: 0
@@ -35230,6 +35325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543032907195019029, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019031, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}

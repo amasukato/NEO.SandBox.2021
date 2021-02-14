@@ -11,7 +11,7 @@ public class Combo : MonoBehaviour
     public float resettime;
 
 
-    // Update is called once per frame
+    //Remove ExitTime on Animation2 ++
     void Update()
     {
         if (Input.GetButtonDown("Fire1") && combonum < 3)
