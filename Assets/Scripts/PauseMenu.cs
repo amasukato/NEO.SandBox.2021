@@ -50,6 +50,11 @@ public class PauseMenu : MonoBehaviour
         seconds = (int)(totalTime % 60);
 
         text.text = minutes.ToString() + " : " + seconds.ToString();
+
+        if (totalTime <= 0)
+        {
+            text.text = " Thank you for playing";
+        }
     }
 
     void Resume()

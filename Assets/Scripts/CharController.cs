@@ -9,14 +9,23 @@ public class CharController : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
 
+
+
     //Stats
+    private float gravity = -9.81f;
     public float moveSpeed = 4f;
     public float dashSpeed;
     public float dashTime;
-    public float JumpForce;
+    public float dashCD;
+    private float JumpForce;
 
     //States
-    public bool IsOnTheGround = true;
+
+    public Transform groundCheck;
+    private float groundDistance = 0.4f;
+    public LayerMask groundMask;
+    private bool IsOnTheGround;
+
     public float turnSmoothTime;
     float turnSmoothVelocity;
 
@@ -41,6 +50,13 @@ public class CharController : MonoBehaviour
         /*if (Input.anyKey)
             Move();*/
 
+        IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if(IsOnTheGround && movDir.y <=0)
+        {
+            movDir.y = -2f;
+        }
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -58,15 +74,22 @@ public class CharController : MonoBehaviour
 
         }
 
+        movDir.y += gravity * Time.deltaTime;
+        controller.Move(movDir * Time.deltaTime);
 
         if (Input.GetButtonDown("Fire1"))
         {
             Attack();
         }
 
+        dashCD -= Time.deltaTime;
         if (Input.GetButtonDown("Fire2"))
         {
-            StartCoroutine(Dash());
+            if (dashCD <= 0)
+            {
+                StartCoroutine(Dash());
+            }
+
         }
     }
 
@@ -102,16 +125,10 @@ public class CharController : MonoBehaviour
         while(Time.time < startTime + dashTime)
         {
             controller.Move(movDir* dashSpeed * Time.deltaTime);
+            dashCD = 0.3f;
 
             yield return null;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            IsOnTheGround = true;
-        }
-    }
 }
