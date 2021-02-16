@@ -27,12 +27,10 @@ public class EnemyAI : MonoBehaviour
     public delegate void EnemyKilled();
     public static event EnemyKilled OnEnemyKilled;
 
-    
     //Stats
     public float HitPoints = 3;
     public float MaxHitPoints;
     
-
     // Patroling
     public Vector3 walkPoint;
     public bool walkPointSet;
@@ -42,9 +40,9 @@ public class EnemyAI : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
-    // States
+    // StateRange
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    private bool playerInSightRange, playerInAttackRange, RunAway;
 
 
     private void Awake()
@@ -77,7 +75,8 @@ public class EnemyAI : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        //if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        //if (HitPoints <= 1) StartCoroutine(RunAway());
 
     }
 
@@ -168,7 +167,13 @@ public class EnemyAI : MonoBehaviour
         HitPoints -= damage;
 
     }
+    /*
+    private IEnumerator RunAway()
+    {
 
+
+    }
+    */
     public void Dead()
     {
         //play dead_animation here
@@ -184,18 +189,6 @@ public class EnemyAI : MonoBehaviour
             OnEnemyKilled();
         }
     }
-    /*
-    //Override State Methods ?
-    private void Knockback(Combatant att, Combatant def)
-    {
-        attacker = att;
-
-        Vector3 direction = (def.transform.position - att.transform.position).normalized;
-        float knockbackSpeed = Mathf.Max(att.knockbackForce - stats.knockbackResist, 0);
-
-        rb.velocity = direction * knockbackSpeed;
-
-    }*/
 
     private void OnDrawGizmosSelected()
     {
