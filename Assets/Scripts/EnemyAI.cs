@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-
+public enum EnemyState
+{
+    idle,
+    walk,
+    attack,
+    knocback
+}
 
 public class EnemyAI : MonoBehaviour
 {
+    public EnemyState currentState;
+
     [HideInInspector] public NavMeshAgent agent;
     //[HideInInspector] public Combatant stats;
     [HideInInspector] public Combatant attacker;
