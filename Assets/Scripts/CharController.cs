@@ -14,20 +14,32 @@ public enum PlayerState
 public class CharController : MonoBehaviour
 {
 
-    public Animator anim1;
-    public Animator anim2;
+    [HideInInspector] public Animator anim1;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
+    [HideInInspector] public MeshRenderer mr;
+
+    //Effect
+    public Object DashRef;
+    public Object GetHitRef;
+    public Object PlayerDeadRef;
+    private Material matDefault;
+    private Material matWhite;
+
+
 
     public PlayerState currentState;
 
     //Stats
+    public float HitPoints;
+    public float MaxHitPoints;
+
     private float gravity = -9.81f;
     public float moveSpeed = 4f;
-    public float dashSpeed;
-    public float dashTime;
-    public float dashCD;
-    public Object DashRef;
+    private float dashSpeed = 20;
+    private float dashTime = 0.25f;
+    private float dashCD = 0.3f;
+
     private float JumpForce;
 
     //States
@@ -39,6 +51,8 @@ public class CharController : MonoBehaviour
 
     public float turnSmoothTime;
     float turnSmoothVelocity;
+    private bool alreadyAttacked;
+    private float FreezeTime = 0.4f; // Duration of stop moving during Attack
 
     // Dash & Movement
     public Vector3 movDir;
@@ -59,7 +73,11 @@ public class CharController : MonoBehaviour
     {
         currentState = PlayerState.idle;
         rb = GetComponent<Rigidbody>();
-        //anim1 = GetComponentInChildren<Animator>();
+        anim1 = GetComponentInChildren<Animator>();
+
+        mr = GetComponent<MeshRenderer>();
+        matWhite = Resources.Load("White", typeof(Material)) as Material;
+        matDefault = mr.material;
 
     }
 
@@ -104,7 +122,8 @@ public class CharController : MonoBehaviour
 
     void Move()
     {
-        anim2.SetTrigger("Run");
+        // Movement Animation
+        //anim2.SetTrigger("Run");
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -126,8 +145,24 @@ public class CharController : MonoBehaviour
 
     void Attack()
     {
+        // Attack Weapon Animation
         anim1.SetTrigger("Attack");
-        anim2.SetTrigger("AttackPattern");
+
+        // Attack Pattern Character Animation
+        // anim2.SetTrigger("AttackPattern");
+        if (!alreadyAttacked)
+        {
+            alreadyAttacked = true;
+            StartCoroutine(FreezePosition());
+
+        }
+    }
+
+    IEnumerator FreezePosition()
+    {
+        yield return new WaitForSeconds(FreezeTime);
+
+        alreadyAttacked = false;
     }
 
     IEnumerator Dash()
@@ -198,4 +233,36 @@ public class CharController : MonoBehaviour
     }
 
     */
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("EnemyHitBox"))
+        {
+            GetComponent<Health>().Damage(1);
+            HitPoints--;
+            mr.material = matWhite;
+            // VFX GetHIt here
+            //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
+            //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+
+            if (HitPoints <= 0)
+            {
+                // Dead animation
+
+                //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
+                //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+
+                //Game over screen
+            }
+            else
+            {
+                Invoke("ResetMaterial", .5f);
+            }
+        }
+    }
+
+    private void ResetMaterial()
+    {
+        mr.material = matDefault;
+    }
 }

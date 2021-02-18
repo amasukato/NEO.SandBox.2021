@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         //stats = GetComponent<Combatant>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         mr = GetComponent<MeshRenderer>();
         matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
@@ -134,6 +134,7 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack Code
+            anim.SetTrigger("Swing");
             ///End Attack code
 
             alreadyAttacked = true;
@@ -148,7 +149,7 @@ public class EnemyAI : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("HitBox"))
+        if (other.gameObject.CompareTag("PlayerHitBox"))
         {
             HitPoints--;
             mr.material = matWhite;
@@ -162,7 +163,6 @@ public class EnemyAI : MonoBehaviour
                 Invoke("ResetMaterial", .5f);
             }
         }
-
     }
 
     private void ResetMaterial()

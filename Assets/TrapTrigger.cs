@@ -2,26 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateOnTrigger : MonoBehaviour
+public class TrapTrigger : MonoBehaviour
 {
-
-    public GameObject OnTrigger;
-    public Animator animator;
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        animator = GetComponent<Animator>();
+        
     }
 
-    private void OnTriggerEnter(Collider other)
+    // Update is called once per frame
+    void Update()
     {
-
-
+        
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.cyan;
 
         foreach (Collider col in GetComponents<Collider>())
         {

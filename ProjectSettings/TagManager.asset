@@ -10,6 +10,8 @@ TagManager:
   - MovableMonument
   - MobileObject
   - HookHolder
+  - PlayerHitBox
+  - EnemyHitBox
   layers:
   - Default
   - TransparentFX
