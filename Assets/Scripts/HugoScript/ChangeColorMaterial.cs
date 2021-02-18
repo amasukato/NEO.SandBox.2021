@@ -13,23 +13,26 @@ public class ChangeColorMaterial : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        rend.enabled = true;
         rend.sharedMaterial = material[0];
     }
 
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
-        var otherRenderer = other.gameObject.GetComponent<Renderer>();
-
-        if (otherRenderer != null)
+        if ( other.gameObject.tag == "Player")
         {
-            rend.sharedMaterial = material[1];
+            var otherRenderer = other.gameObject.GetComponent<Renderer>();
 
+            if (otherRenderer != null)
+            {
+                rend.sharedMaterial = material[1];
+
+            }
+            else
+            {
+                rend.sharedMaterial = material[2];
+            }
         }
-        else
-        {
-            rend.sharedMaterial = material[2];
-        }
+
     }
 }

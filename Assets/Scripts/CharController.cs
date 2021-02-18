@@ -14,7 +14,8 @@ public enum PlayerState
 public class CharController : MonoBehaviour
 {
 
-    [HideInInspector] public Animator anim;
+    public Animator anim1;
+    public Animator anim2;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
 
@@ -58,7 +59,7 @@ public class CharController : MonoBehaviour
     {
         currentState = PlayerState.idle;
         rb = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animator>();
+        //anim1 = GetComponentInChildren<Animator>();
 
     }
 
@@ -81,7 +82,7 @@ public class CharController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            //Attack();
+            Attack();
         }
 
         dashCD -= Time.deltaTime;
@@ -103,6 +104,8 @@ public class CharController : MonoBehaviour
 
     void Move()
     {
+        anim2.SetTrigger("Run");
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -123,7 +126,8 @@ public class CharController : MonoBehaviour
 
     void Attack()
     {
-        anim.SetTrigger("Attack");
+        anim1.SetTrigger("Attack");
+        anim2.SetTrigger("AttackPattern");
     }
 
     IEnumerator Dash()
