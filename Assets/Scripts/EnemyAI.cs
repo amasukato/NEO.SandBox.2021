@@ -84,7 +84,7 @@ public class EnemyAI : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
-        //if (HitPoints <= 1) StartCoroutine(RunAway());
+
 
     }
 
@@ -175,13 +175,8 @@ public class EnemyAI : MonoBehaviour
         HitPoints -= damage;
 
     }
-    /*
-    private IEnumerator RunAway()
-    {
 
-
-    }
-    */
+    
     public void Dead()
     {
         //play dead_animation here

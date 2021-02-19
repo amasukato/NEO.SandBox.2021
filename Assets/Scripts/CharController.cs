@@ -2,22 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState
-{
-    idle,
-    walk,
-    attack,
-    interact,
-    hurt
-}
 
 public class CharController : MonoBehaviour
 {
 
     [HideInInspector] public Animator anim1;
     [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public CharacterController controller;
     [HideInInspector] public MeshRenderer mr;
+    [HideInInspector] public CharacterController controller;
 
     //Effect
     public Object DashRef;
@@ -25,10 +17,6 @@ public class CharController : MonoBehaviour
     public Object PlayerDeadRef;
     private Material matDefault;
     private Material matWhite;
-
-
-
-    public PlayerState currentState;
 
     //Stats
     public float HitPoints;
@@ -65,16 +53,11 @@ public class CharController : MonoBehaviour
     public bool IsThrowable;
     public float grabDistance = 2f;
 
-
-    //Attack
-    public Collider[] attackHitboxes;
-
     void Start()
     {
-        currentState = PlayerState.idle;
         rb = GetComponent<Rigidbody>();
         anim1 = GetComponentInChildren<Animator>();
-
+        controller = GetComponent<CharacterController>();
         mr = GetComponent<MeshRenderer>();
         matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
@@ -103,6 +86,7 @@ public class CharController : MonoBehaviour
             Attack();
         }
 
+        /*
         dashCD -= Time.deltaTime;
         if (Input.GetButtonDown("Fire2"))
         {
@@ -115,6 +99,7 @@ public class CharController : MonoBehaviour
             }
 
         }
+        */
 
         //Grab();
 
@@ -178,7 +163,7 @@ public class CharController : MonoBehaviour
         }
     }
 
-    /*
+    
     void Grab()
     {
         if (Input.GetButtonDown("Fire3"))
@@ -187,7 +172,7 @@ public class CharController : MonoBehaviour
             Ray directionRay = new Ray(transform.position, transform.forward);
             if (Physics.Raycast(directionRay, out hit, grabDistance))
             {
-                if (hit.collider.tag == "MobileObject")
+                if (hit.collider !=null && hit.collider.tag == "MobileObject")
                 {
                     CarryObject = true;
                     IsThrowable = true;
@@ -202,20 +187,34 @@ public class CharController : MonoBehaviour
                         }
                     }
                 }
-                if (hit.collider.tag == "HookHolder")
-                {
-                    Item = hit.collider.gameObject;
-                    Item.transform.SetParent(ObjectHolder);
+                /* // Push & Pull
+                 * 
+                else if (hit.collider !=null && hit.collider.tag == "MovableMonument")
+                    {
+                        Item = hit.collider.gameObject;
 
-                    movDir = transform.position + Item.transform.position;
-                    controller.Move(movDir * dashSpeed * Time.deltaTime);
-                }
+                        Item.GetComponent<FixedJoint>().enableCollision = true; 
+                        Item.GetComponent<MovableMonument>().beingPushed = true;
+
+                    }
+                
+                // HookShot
+                else if (hit.collider.tag == "HookHolder")
+                    {
+                        Item = hit.collider.gameObject;
+                        Item.transform.SetParent(ObjectHolder);
+
+                        movDir = transform.position + Item.transform.position;
+                        controller.Move(movDir * dashSpeed * Time.deltaTime);
+                    }
+
+                */
             }
-
-            if (Input.GetButtonUp("Fire3"))
+            else if (Input.GetButtonUp("Fire3"))
             {
                 CarryObject = false;
                 IsThrowable = false;
+
                 ObjectHolder.DetachChildren();
                 if (Item.gameObject.tag != "MobileObject")
                 {
@@ -232,7 +231,7 @@ public class CharController : MonoBehaviour
 
     }
 
-    */
+    
 
     private void OnTriggerEnter(Collider other)
     {
