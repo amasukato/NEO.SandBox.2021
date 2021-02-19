@@ -10,11 +10,15 @@ public class GrabThrow : MonoBehaviour
     public bool CarryObject;
     public GameObject Item;
     public bool IsThrowable;
-    public float grabDistance = 2f;
+    public float grabDistance = 3f;
 
+    public void Update()
+    {
+        Grab();
+    }
     void Grab()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
@@ -43,22 +47,33 @@ public class GrabThrow : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetButtonUp("Fire2"))
+        else if (Input.GetKeyUp(KeyCode.C))
             {
-                CarryObject = false;
-                IsThrowable = false;
-
-                ObjectHolder.DetachChildren();
-                if (Item.gameObject.tag != "MobileObject")
+                if (IsThrowable)
                 {
-                    StartCoroutine(Throw());
+
+                    Item.GetComponent<Rigidbody>().isKinematic = false;
+                    Item.GetComponent<Rigidbody>().useGravity = true;
+                    Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
                 }
+            StartCoroutine(Throw());
             }
         }
+
     IEnumerator Throw()
     {
-        yield return null;
-        Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
+        yield return new WaitForSeconds (0.8f);
+        if (Item != null)
+        {
+            Item.GetComponent<Rigidbody>().useGravity = false;
+            Item.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            CarryObject = false;
+            IsThrowable = false;
+            ObjectHolder.DetachChildren();
+        }
+
+
+
     }
 
     private void OnDrawGizmos()

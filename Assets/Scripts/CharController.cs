@@ -12,11 +12,12 @@ public class CharController : MonoBehaviour
     [HideInInspector] public CharacterController controller;
 
     //Effect
-    public Object DashRef;
-    public Object GetHitRef;
-    public Object PlayerDeadRef;
+    [SerializeField] private Object DashRef;
+    [SerializeField] private Object GetHitRef;
+    [SerializeField] private Object PlayerDeadRef;
+    [SerializeField] private Material matWhite;
     private Material matDefault;
-    private Material matWhite;
+
 
     //Stats
     public float HitPoints;
@@ -59,7 +60,7 @@ public class CharController : MonoBehaviour
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         mr = GetComponent<MeshRenderer>();
-        matWhite = Resources.Load("White", typeof(Material)) as Material;
+        //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
 
     }
@@ -86,7 +87,7 @@ public class CharController : MonoBehaviour
             Attack();
         }
 
-        /*
+        
         dashCD -= Time.deltaTime;
         if (Input.GetButtonDown("Fire2"))
         {
@@ -99,9 +100,8 @@ public class CharController : MonoBehaviour
             }
 
         }
-        */
-
         //Grab();
+
 
     }
 
@@ -163,100 +163,31 @@ public class CharController : MonoBehaviour
         }
     }
 
-    
-    void Grab()
-    {
-        if (Input.GetButtonDown("Fire3"))
-        {
-            RaycastHit hit;
-            Ray directionRay = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(directionRay, out hit, grabDistance))
-            {
-                if (hit.collider !=null && hit.collider.tag == "MobileObject")
-                {
-                    CarryObject = true;
-                    IsThrowable = true;
-                    {
-                        if (CarryObject == true)
-                        {
-                            Item = hit.collider.gameObject;
-                            Item.transform.SetParent(ObjectHolder);
-                            Item.gameObject.transform.position = ObjectHolder.position;
-                            Item.GetComponent<Rigidbody>().isKinematic = true;
-                            Item.GetComponent<Rigidbody>().useGravity = false;
-                        }
-                    }
-                }
-                /* // Push & Pull
-                 * 
-                else if (hit.collider !=null && hit.collider.tag == "MovableMonument")
-                    {
-                        Item = hit.collider.gameObject;
-
-                        Item.GetComponent<FixedJoint>().enableCollision = true; 
-                        Item.GetComponent<MovableMonument>().beingPushed = true;
-
-                    }
-                
-                // HookShot
-                else if (hit.collider.tag == "HookHolder")
-                    {
-                        Item = hit.collider.gameObject;
-                        Item.transform.SetParent(ObjectHolder);
-
-                        movDir = transform.position + Item.transform.position;
-                        controller.Move(movDir * dashSpeed * Time.deltaTime);
-                    }
-
-                */
-            }
-            else if (Input.GetButtonUp("Fire3"))
-            {
-                CarryObject = false;
-                IsThrowable = false;
-
-                ObjectHolder.DetachChildren();
-                if (Item.gameObject.tag != "MobileObject")
-                {
-                    StartCoroutine(Throw());
-                }
-            }
-        }
-    }
-    
-    IEnumerator Throw()
-    {
-        yield return null;
-        Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
-
-    }
-
-    
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
-            GetComponent<Health>().Damage(1);
-            HitPoints--;
-            mr.material = matWhite;
-            // VFX GetHIt here
-            //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
-            //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+                GetComponent<Health>().Damage(1);
+                HitPoints--;
+                mr.material = matWhite;
+                // VFX GetHIt here
+                //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
+                //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
 
-            if (HitPoints <= 0)
-            {
-                // Dead animation
+                if (HitPoints <= 0)
+                {
+                    // Dead animation
 
-                //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
-                //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+                    //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
+                    //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
 
-                //Game over screen
-            }
-            else
-            {
-                Invoke("ResetMaterial", .5f);
-            }
+                    //Game over screen
+                }
+                else
+                {
+                    Invoke("ResetMaterial", .5f);
+                }
+
         }
     }
 

@@ -66,20 +66,21 @@ public class HookShot : MonoBehaviour
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
 
-            Debug.DrawRay(origin, direction * 10f, Color.red);
-
-            
+            RaycastHit raycastHit;
             Ray directionRay = new Ray(origin, direction);
 
-            if (Physics.Raycast(directionRay, out RaycastHit raycastHit))
+            if (Physics.Raycast(directionRay, out raycastHit, HookshotDistance))
             {
                 //Hit something
-                DebugHitPointTransform.position = raycastHit.point;
-                hookshotPosition = raycastHit.point;
-                hookshotSize = 0f;
-                hookshotTransform.gameObject.SetActive(true);
-                hookshotTransform.localScale = Vector3.zero;
-                state = State.HookshotThrown;
+                if (raycastHit.collider.CompareTag("HookHolder"))
+                {
+                    DebugHitPointTransform.position = raycastHit.point;
+                    hookshotPosition = raycastHit.point;
+                    hookshotSize = 0f;
+                    hookshotTransform.gameObject.SetActive(true);
+                    hookshotTransform.localScale = Vector3.zero;
+                    state = State.HookshotThrown;
+                }
             }
         }
     }
@@ -100,7 +101,6 @@ public class HookShot : MonoBehaviour
 
     private void HookShotMovement()
     {
-
         Vector3 hookshotDir = (hookshotPosition - transform.position).normalized;
 
         float hookshotSpeedMin = 30f;
