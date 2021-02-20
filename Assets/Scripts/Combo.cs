@@ -32,12 +32,13 @@ public class Combo : MonoBehaviour
         }
         if (combonum == 3)
         {
-            resettime = 3f;
+            resettime = 0.1f;
             combonum = 0;
         }
         else
         {
-            resettime = 1f;
+            resettime = 0.7f;
+            
         }
     }
 }

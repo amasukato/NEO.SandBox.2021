@@ -26,8 +26,8 @@ public class CharController : MonoBehaviour
     private float gravity = -9.81f;
     public float moveSpeed = 4f;
     private float dashSpeed = 20;
-    private float dashTime = 0.25f;
-    private float dashCD = 0.3f;
+    public float dashTime = 0.25f;
+    public float dashCD = 0.3f;
 
     private float JumpForce;
 
