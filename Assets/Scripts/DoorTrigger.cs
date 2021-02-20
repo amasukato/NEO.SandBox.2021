@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     public Animator animator;
-
+   
     private void Start()
     {
         //animator = GetComponent<Animator>();
