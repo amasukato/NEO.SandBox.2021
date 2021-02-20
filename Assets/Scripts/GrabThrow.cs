@@ -18,7 +18,7 @@ public class GrabThrow : MonoBehaviour
     }
     void Grab()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetButtonDown("Fire4"))
         {
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
@@ -47,7 +47,7 @@ public class GrabThrow : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyUp(KeyCode.C))
+        else if (Input.GetButtonUp("Fire4"))
             {
                 if (IsThrowable)
                 {

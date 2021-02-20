@@ -7,7 +7,7 @@ public class Player_KnockBack : MonoBehaviour
 
     public float thrust;
     public float knockTime;
-    public CameraController cameraShake;
+    //public CameraController cameraShake;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +23,7 @@ public class Player_KnockBack : MonoBehaviour
                 enemy.AddForce(difference, ForceMode.Impulse);
                 StartCoroutine(KnockCO(enemy));
 
-                StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
+                //StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
             }
         }
     }

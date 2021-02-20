@@ -61,7 +61,7 @@ public class HookShot : MonoBehaviour
 
     private void HookShotStart()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonDown("Fire3"))
         {
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
@@ -74,13 +74,14 @@ public class HookShot : MonoBehaviour
                 //Hit something
                 if (raycastHit.collider.CompareTag("HookHolder"))
                 {
-                    DebugHitPointTransform.position = raycastHit.point;
-                    hookshotPosition = raycastHit.point;
-                    hookshotSize = 0f;
-                    hookshotTransform.gameObject.SetActive(true);
-                    hookshotTransform.localScale = Vector3.zero;
-                    state = State.HookshotThrown;
+             
                 }
+                DebugHitPointTransform.position = raycastHit.point;
+                hookshotPosition = raycastHit.point;
+                hookshotSize = 0f;
+                hookshotTransform.gameObject.SetActive(true);
+                hookshotTransform.localScale = Vector3.zero;
+                state = State.HookshotThrown;
             }
         }
     }
