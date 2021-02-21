@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
 
-    private Material matWhite;
+    [SerializeField] private Material matWhite;
     private Material matDefault;
     public Object explosionRef;
     MeshRenderer mr;
@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour
         //stats = GetComponent<Combatant>();
         anim = GetComponentInChildren<Animator>();
         mr = GetComponent<MeshRenderer>();
-        matWhite = Resources.Load("White", typeof(Material)) as Material;
+        //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
 
         //explosionRef = Resources.Load("Explosion");

@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class AttractForce : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float AttractSpeed;
+
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            transform.position = Vector3.MoveTowards(transform.position, other.transform.position, AttractSpeed * Time.deltaTime);
+        }
+    }
+
     void Update()
     {
-        
+        if (transform.childCount < 1)
+        {
+            Destroy(gameObject);
+        }
     }
+
 }
