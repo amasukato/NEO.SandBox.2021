@@ -12,6 +12,7 @@ TagManager:
   - HookHolder
   - PlayerHitBox
   - EnemyHitBox
+  - RightHand
   layers:
   - Default
   - TransparentFX

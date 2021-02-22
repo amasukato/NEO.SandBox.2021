@@ -46,6 +46,7 @@ public class CharController : MonoBehaviour
     // Dash & Movement
     public Vector3 movDir;
 
+
     // Grab & Thrown
     public Transform ObjectHolder;
     public float ThrowForce;
@@ -65,21 +66,29 @@ public class CharController : MonoBehaviour
 
     }
 
+
     // Update is called once per frame
     void Update()
     {
 
+        
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (IsOnTheGround && movDir.y <= 0)
+        if(IsOnTheGround && movDir.y <=0)
         {
-            movDir.y = -4f;
+            movDir.y = -2f;
+
         }
+
+        if (movDir.x <= -2)
+        {
+            anim1.SetTrigger("idle1");
+        }
+   
 
         Move();
 
-        movDir.y += gravity * Time.deltaTime;
-        //movDir.y += gravity * Time.deltaTime;
+        movDir.x += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
 
         if (Input.GetButtonDown("Fire1"))
@@ -108,12 +117,14 @@ public class CharController : MonoBehaviour
     void Move()
     {
         // Movement Animation
+        
         //anim2.SetTrigger("Run");
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+        
         if (direction.magnitude >= 0.1)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -124,21 +135,33 @@ public class CharController : MonoBehaviour
             movDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             controller.Move( movDir.normalized * moveSpeed * Time.deltaTime);
-
+            
         }
+        if (horizontal == 0 && vertical == 0)
+        {
+            anim1.SetBool("Run1", false);
+        }
+        else
+        {
+            anim1.SetBool("Run1", true);
+        }
+
+
+
     }
 
     void Attack()
     {
         // Attack Weapon Animation
-        anim1.SetTrigger("Attack");
+        
+        
 
         // Attack Pattern Character Animation
         // anim2.SetTrigger("AttackPattern");
         if (!alreadyAttacked)
         {
             alreadyAttacked = true;
-            StartCoroutine(FreezePosition());
+            //StartCoroutine(FreezePosition());
 
         }
     }
@@ -153,9 +176,11 @@ public class CharController : MonoBehaviour
     IEnumerator Dash()
     {
         float startTime = Time.time;
+        anim1.SetTrigger("Dash");
 
-        while(Time.time < startTime + dashTime)
+        while (Time.time < startTime + dashTime)
         {
+            
             controller.Move(movDir* dashSpeed * Time.deltaTime);
             dashCD = 0.3f;
 
