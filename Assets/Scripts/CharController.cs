@@ -65,21 +65,21 @@ public class CharController : MonoBehaviour
 
     }
 
-
     // Update is called once per frame
     void Update()
-    {       
-        
+    {
+
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(IsOnTheGround && movDir.y <=0)
+        if (IsOnTheGround && movDir.y <= 0)
         {
-            movDir.y = -2f;
+            movDir.y = -4f;
         }
 
         Move();
 
         movDir.y += gravity * Time.deltaTime;
+        //movDir.y += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
 
         if (Input.GetButtonDown("Fire1"))

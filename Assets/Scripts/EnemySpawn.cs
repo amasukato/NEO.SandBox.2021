@@ -22,17 +22,22 @@ public class EnemySpawn : MonoBehaviour
 
     void OnTriggerEnter ( Collider other)
     {
-        InvokeRepeating("EnemySpawner", 0.5f, repeatRate);
-        Destroy(gameObject, LifeTime);
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-
+        if (other.gameObject.CompareTag("Player"))
+        {
+            InvokeRepeating("EnemySpawner", 0.5f, repeatRate);
+            Destroy(gameObject, LifeTime);
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        InvokeRepeating("EnemySpawner", 0.5f, repeatRate);
-        Destroy(gameObject, LifeTime);
-        gameObject.GetComponent<BoxCollider>().enabled = false;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            InvokeRepeating("EnemySpawner", 0.5f, repeatRate);
+            Destroy(gameObject, LifeTime);
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
     }
 
     private void OnEnable()

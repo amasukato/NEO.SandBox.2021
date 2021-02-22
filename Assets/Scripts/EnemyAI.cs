@@ -137,6 +137,8 @@ public class EnemyAI : MonoBehaviour
             anim.SetTrigger("Swing");
             ///End Attack code
 
+            timeBetweenAttacks = Random.Range(2, 5);
+
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
