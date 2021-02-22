@@ -47,14 +47,6 @@ public class CharController : MonoBehaviour
     public Vector3 movDir;
 
 
-    // Grab & Thrown
-    public Transform ObjectHolder;
-    public float ThrowForce;
-    public bool CarryObject;
-    public GameObject Item;
-    public bool IsThrowable;
-    public float grabDistance = 2f;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -84,9 +76,10 @@ public class CharController : MonoBehaviour
         {
             anim1.SetTrigger("idle1");
         }
-   
+        
 
         Move();
+
 
         movDir.x += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
@@ -94,6 +87,10 @@ public class CharController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Attack();
+        }
+        else
+        {
+            alreadyAttacked = false;
         }
 
         

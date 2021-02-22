@@ -5648,7 +5648,7 @@ PrefabInstance:
     - target: {fileID: 7298880220754676335, guid: d86f3fab98788694f9f59ba4b63eb697,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7298880220754676335, guid: d86f3fab98788694f9f59ba4b63eb697,
         type: 3}
@@ -24030,6 +24030,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -9.253753
       objectReference: {fileID: 0}
+    - target: {fileID: -7943378556525867576, guid: 1decebdb272a9594abef1b9b11d8c655,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7597426032139329959, guid: 1decebdb272a9594abef1b9b11d8c655,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -39235,12 +39240,6 @@ MonoBehaviour:
     m_Bits: 256
   turnSmoothTime: 0
   movDir: {x: 0, y: 0, z: 0}
-  ObjectHolder: {fileID: 0}
-  ThrowForce: 0
-  CarryObject: 0
-  Item: {fileID: 0}
-  IsThrowable: 0
-  grabDistance: 2
 --- !u!136 &2124129535
 CapsuleCollider:
   m_ObjectHideFlags: 0
