@@ -6,6 +6,7 @@ public class Combo : MonoBehaviour
 {
     List<string> animlist = new List<string>(new string[] { "Attack", "Attack2", "Attack3" });
     public Animator animator;
+    public Animator animatorPlayer;
     public int combonum;
     public float reset;
     public float resettime;
@@ -17,16 +18,19 @@ public class Combo : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && combonum < 3)
         {
             animator.SetTrigger(animlist[combonum]);
+            animatorPlayer.SetTrigger(animlist[combonum]);
             combonum++;
             reset = 0f;
 
         }
-        if (combonum > 0 )
+
+            if (combonum > 0 )
         {
             reset += Time.deltaTime;
             if(reset > resettime)
             {
                 animator.SetTrigger("Reset");
+                animatorPlayer.SetTrigger("Reset");
                 combonum = 0;
             }
         }
@@ -37,7 +41,7 @@ public class Combo : MonoBehaviour
         }
         else
         {
-            resettime = 0.7f;
+            resettime = 0.5f;
             
         }
     }
