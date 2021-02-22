@@ -12,11 +12,12 @@ public class CharController : MonoBehaviour
     [HideInInspector] public CharacterController controller;
 
     //Effect
-    public Object DashRef;
-    public Object GetHitRef;
-    public Object PlayerDeadRef;
+    [SerializeField] private Object DashRef;
+    [SerializeField] private Object GetHitRef;
+    [SerializeField] private Object PlayerDeadRef;
+    [SerializeField] private Material matWhite;
     private Material matDefault;
-    private Material matWhite;
+
 
     //Stats
     public float HitPoints;
@@ -25,8 +26,8 @@ public class CharController : MonoBehaviour
     private float gravity = -9.81f;
     public float moveSpeed = 4f;
     private float dashSpeed = 20;
-    private float dashTime = 0.25f;
-    private float dashCD = 0.3f;
+    public float dashTime = 0.25f;
+    public float dashCD = 0.3f;
 
     private float JumpForce;
 
@@ -45,6 +46,7 @@ public class CharController : MonoBehaviour
     // Dash & Movement
     public Vector3 movDir;
 
+
     // Grab & Thrown
     public Transform ObjectHolder;
     public float ThrowForce;
@@ -59,7 +61,7 @@ public class CharController : MonoBehaviour
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         mr = GetComponent<MeshRenderer>();
-        matWhite = Resources.Load("White", typeof(Material)) as Material;
+        //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
 
     }
@@ -67,18 +69,26 @@ public class CharController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {       
+    {
+
         
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(IsOnTheGround && movDir.y <=0)
         {
             movDir.y = -2f;
+
         }
+
+        if (movDir.x <= -2)
+        {
+            anim1.SetTrigger("idle1");
+        }
+   
 
         Move();
 
-        movDir.y += gravity * Time.deltaTime;
+        movDir.x += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
 
         if (Input.GetButtonDown("Fire1"))
@@ -86,7 +96,7 @@ public class CharController : MonoBehaviour
             Attack();
         }
 
-        /*
+        
         dashCD -= Time.deltaTime;
         if (Input.GetButtonDown("Fire2"))
         {
@@ -99,21 +109,22 @@ public class CharController : MonoBehaviour
             }
 
         }
-        */
-
         //Grab();
+
 
     }
 
     void Move()
     {
         // Movement Animation
+        
         //anim2.SetTrigger("Run");
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+        
         if (direction.magnitude >= 0.1)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -124,21 +135,33 @@ public class CharController : MonoBehaviour
             movDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             controller.Move( movDir.normalized * moveSpeed * Time.deltaTime);
-
+            
         }
+        if (horizontal == 0 && vertical == 0)
+        {
+            anim1.SetBool("Run1", false);
+        }
+        else
+        {
+            anim1.SetBool("Run1", true);
+        }
+
+
+
     }
 
     void Attack()
     {
         // Attack Weapon Animation
-        anim1.SetTrigger("Attack");
+        
+        
 
         // Attack Pattern Character Animation
         // anim2.SetTrigger("AttackPattern");
         if (!alreadyAttacked)
         {
             alreadyAttacked = true;
-            StartCoroutine(FreezePosition());
+            //StartCoroutine(FreezePosition());
 
         }
     }
@@ -153,9 +176,11 @@ public class CharController : MonoBehaviour
     IEnumerator Dash()
     {
         float startTime = Time.time;
+        anim1.SetTrigger("Dash");
 
-        while(Time.time < startTime + dashTime)
+        while (Time.time < startTime + dashTime)
         {
+            
             controller.Move(movDir* dashSpeed * Time.deltaTime);
             dashCD = 0.3f;
 
@@ -163,100 +188,31 @@ public class CharController : MonoBehaviour
         }
     }
 
-    
-    void Grab()
-    {
-        if (Input.GetButtonDown("Fire3"))
-        {
-            RaycastHit hit;
-            Ray directionRay = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(directionRay, out hit, grabDistance))
-            {
-                if (hit.collider !=null && hit.collider.tag == "MobileObject")
-                {
-                    CarryObject = true;
-                    IsThrowable = true;
-                    {
-                        if (CarryObject == true)
-                        {
-                            Item = hit.collider.gameObject;
-                            Item.transform.SetParent(ObjectHolder);
-                            Item.gameObject.transform.position = ObjectHolder.position;
-                            Item.GetComponent<Rigidbody>().isKinematic = true;
-                            Item.GetComponent<Rigidbody>().useGravity = false;
-                        }
-                    }
-                }
-                /* // Push & Pull
-                 * 
-                else if (hit.collider !=null && hit.collider.tag == "MovableMonument")
-                    {
-                        Item = hit.collider.gameObject;
-
-                        Item.GetComponent<FixedJoint>().enableCollision = true; 
-                        Item.GetComponent<MovableMonument>().beingPushed = true;
-
-                    }
-                
-                // HookShot
-                else if (hit.collider.tag == "HookHolder")
-                    {
-                        Item = hit.collider.gameObject;
-                        Item.transform.SetParent(ObjectHolder);
-
-                        movDir = transform.position + Item.transform.position;
-                        controller.Move(movDir * dashSpeed * Time.deltaTime);
-                    }
-
-                */
-            }
-            else if (Input.GetButtonUp("Fire3"))
-            {
-                CarryObject = false;
-                IsThrowable = false;
-
-                ObjectHolder.DetachChildren();
-                if (Item.gameObject.tag != "MobileObject")
-                {
-                    StartCoroutine(Throw());
-                }
-            }
-        }
-    }
-    
-    IEnumerator Throw()
-    {
-        yield return null;
-        Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
-
-    }
-
-    
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
-            GetComponent<Health>().Damage(1);
-            HitPoints--;
-            mr.material = matWhite;
-            // VFX GetHIt here
-            //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
-            //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+                GetComponent<Health>().Damage(1);
+                HitPoints--;
+                mr.material = matWhite;
+                // VFX GetHIt here
+                //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
+                //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
 
-            if (HitPoints <= 0)
-            {
-                // Dead animation
+                if (HitPoints <= 0)
+                {
+                    // Dead animation
 
-                //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
-                //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+                    //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
+                    //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
 
-                //Game over screen
-            }
-            else
-            {
-                Invoke("ResetMaterial", .5f);
-            }
+                    //Game over screen
+                }
+                else
+                {
+                    Invoke("ResetMaterial", .5f);
+                }
+
         }
     }
 

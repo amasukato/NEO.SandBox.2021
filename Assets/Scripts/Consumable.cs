@@ -4,29 +4,17 @@ using UnityEngine;
 
 public class Consumable : MonoBehaviour
 {
-    public float AttractSpeed;
+    //add value
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if ( other.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player"))
         {
-            transform.position = Vector3.MoveTowards(transform.position, other.transform.position, AttractSpeed * Time.deltaTime);
-        }
-    }
+            // Add value
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (transform.childCount < 1 )
-        {
             Destroy(gameObject);
         }
     }
+
+
 }
