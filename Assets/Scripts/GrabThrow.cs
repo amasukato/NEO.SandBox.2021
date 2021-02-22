@@ -9,7 +9,7 @@ public class GrabThrow : MonoBehaviour
     public float ThrowForce;
     public bool CarryObject;
     public GameObject Item;
-    public bool IsThrowable;
+    private float sphereCastRadius;
     public float grabDistance = 3f;
 
     public void Update()
@@ -28,58 +28,35 @@ public class GrabThrow : MonoBehaviour
             RaycastHit hit;
             Ray directionRay = new Ray(transform.position, transform.forward);
 
-            if (Physics.Raycast(directionRay, out hit, grabDistance))
+            if (Physics.SphereCast(directionRay, sphereCastRadius, out hit, grabDistance))
             {
                 if (hit.collider != null && hit.collider.tag == "MobileObject")
                 {
                     CarryObject = true;
-                    IsThrowable = true;
+                    if(CarryObject == true)
                     {
-                        if (CarryObject == true)
-                        {
-                            Item = hit.collider.gameObject;
-                            Item.transform.SetParent(ObjectHolder);
-                            Item.gameObject.transform.position = ObjectHolder.position;
-                            Item.GetComponent<Rigidbody>().isKinematic = true;
-                            Item.GetComponent<Rigidbody>().useGravity = false;
-                        }
+                        Item = hit.collider.gameObject;
+                        Item.transform.SetParent(ObjectHolder);
+                        Item.gameObject.transform.position = ObjectHolder.position;
+                        Item.GetComponent<Rigidbody>().isKinematic = true;
+                        Item.GetComponent<Rigidbody>().useGravity = false;
                     }
                 }
             }
         }
         else if (Input.GetButtonUp("Fire4"))
             {
-                if (IsThrowable)
-                {
+                CarryObject = false;
+                
+                Item.GetComponent<Rigidbody>().isKinematic = false;
+                Item.GetComponent<Rigidbody>().useGravity = true;
 
-                    Item.GetComponent<Rigidbody>().isKinematic = false;
-                    Item.GetComponent<Rigidbody>().useGravity = true;
-                    Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
-                }
-            StartCoroutine(Throw());
+                Item.GetComponent<Rigidbody>().AddForce(transform.forward * ThrowForce, ForceMode.Impulse);
+
+                //Item.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                ObjectHolder.DetachChildren();
+
             }
-        }
-
-    IEnumerator Throw()
-    {
-        yield return new WaitForSeconds (0.8f);
-        if (Item != null)
-        {
-            Item.GetComponent<Rigidbody>().useGravity = false;
-            Item.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            CarryObject = false;
-            IsThrowable = false;
-            ObjectHolder.DetachChildren();
-        }
-
-
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward);
     }
 
 }

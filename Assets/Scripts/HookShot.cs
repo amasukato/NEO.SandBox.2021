@@ -74,14 +74,14 @@ public class HookShot : MonoBehaviour
                 //Hit something
                 if (raycastHit.collider.CompareTag("HookHolder"))
                 {
-             
+                    DebugHitPointTransform.position = raycastHit.point;
+                    hookshotPosition = raycastHit.point;
+                    hookshotSize = 0f;
+                    hookshotTransform.gameObject.SetActive(true);
+                    hookshotTransform.localScale = Vector3.zero;
+                    state = State.HookshotThrown;
                 }
-                DebugHitPointTransform.position = raycastHit.point;
-                hookshotPosition = raycastHit.point;
-                hookshotSize = 0f;
-                hookshotTransform.gameObject.SetActive(true);
-                hookshotTransform.localScale = Vector3.zero;
-                state = State.HookshotThrown;
+
             }
         }
     }
