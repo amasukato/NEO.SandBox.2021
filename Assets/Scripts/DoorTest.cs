@@ -25,11 +25,6 @@ public class DoorTest : MonoBehaviour
 
 
 
-
-
-
-
-
 }
 
 
