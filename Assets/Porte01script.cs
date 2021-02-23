@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class interrupteurPorte5 : MonoBehaviour
+public class Porte01script : MonoBehaviour
 {
     public Animator animator;
 
     private void OnTriggerEnter(Collider other)
     {
-        if ( other.gameObject.CompareTag("Player"))
+       if(other.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("sangoku", true);
+            animator.SetBool("Openporte", true);
         }
+     
     }
 
     private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("sangoku", false);
+            animator.SetBool("Openporte", false);
         }
+            
     }
-
     // Update is called once per frame
     void Update()
     {
