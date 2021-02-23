@@ -46,6 +46,14 @@ public class CharController : MonoBehaviour
     // Dash & Movement
     public Vector3 movDir;
 
+    public State PlayerState = State.Idle;
+    public enum State
+    {
+        Idle,
+        IdleRecovery,
+        Attacking,
+
+    }
 
     void Start()
     {
