@@ -6,7 +6,6 @@ public class ComboAttack : MonoBehaviour
 {
     public Animator WeaponAnim;
     public Animator SubWeaponAnim;
-    public Animator PlayerAnim;
 
     [SerializeField] private bool SubWeaponActive;
     [SerializeField] private bool comboPossible;
@@ -24,7 +23,7 @@ public class ComboAttack : MonoBehaviour
         if (Input.GetButtonDown("Left1"))
         {
             SubWeaponActive = true;
-        } else
+        } else if (Input.GetButtonUp("Left1"))
         {
             SubWeaponActive = false;
         }
@@ -34,10 +33,18 @@ public class ComboAttack : MonoBehaviour
 
         if(comboStep == 0)
         {
-
-            WeaponAnim.Play("Standing 1H Magic Attack 01 0");
-            comboStep = 1;
-            return;
+            if (SubWeaponActive == false)
+            {
+                WeaponAnim.Play("Standing 1H Magic Attack 01 0");
+                comboStep = 1;
+                return;
+            }
+            else if (SubWeaponActive == true)
+            {
+                SubWeaponAnim.Play("chaine_1 0");
+                comboStep = 1;
+                return;
+            }
 
         }
 
@@ -60,15 +67,26 @@ public class ComboAttack : MonoBehaviour
     {
         if (comboStep >= 2)
         {
-
-            WeaponAnim.Play("Standing Melee Attack 360 High 0");
-
-
+            if(SubWeaponActive == false)
+            {
+                WeaponAnim.Play("Standing Melee Attack 360 High 0"); //Standing Melee Attack 360 High 0
+            }
+            else if ( SubWeaponActive == true)
+            {
+                SubWeaponAnim.Play("chaine_2 0"); //Standing Melee Attack 360 High 0
+            }
 
         }
         if (comboStep >= 3)
         {
-            WeaponAnim.Play("Sword And Shield Slash 0");
+            if(SubWeaponActive == false)
+            {
+                WeaponAnim.Play("Sword And Shield Slash 0"); //Sword And Shield Slash 0
+            }
+            else if (SubWeaponActive == true)
+            {
+                SubWeaponAnim.Play("chaine_3 0"); //Standing Melee Attack 360 High 0
+            }
 
         }
     }

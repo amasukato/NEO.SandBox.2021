@@ -9,8 +9,8 @@ public class GrabThrow : MonoBehaviour
     public float ThrowForce;
     public bool CarryObject;
     public GameObject Item;
-    private float sphereCastRadius;
-    public float grabDistance = 3f;
+    private float sphereCastRadius = 1.5f;
+    public float grabDistance = 3.5f;
 
     public void Update()
     {
@@ -18,7 +18,7 @@ public class GrabThrow : MonoBehaviour
     }
     void Grab()
     {
-        if (Input.GetButtonDown("Fire4"))
+        if (Input.GetButtonDown("Fire6"))
         {
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
@@ -44,7 +44,7 @@ public class GrabThrow : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetButtonUp("Fire4"))
+        else if (Input.GetButtonUp("Fire6"))
             {
                 CarryObject = false;
                 

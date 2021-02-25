@@ -106,7 +106,7 @@ public class CharController : MonoBehaviour
 
         
         dashCD -= Time.deltaTime;
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && IsOnTheGround == true)
         {
             if (dashCD <= 0)
             {

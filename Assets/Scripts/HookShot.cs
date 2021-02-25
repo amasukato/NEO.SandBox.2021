@@ -15,6 +15,7 @@ public class HookShot : MonoBehaviour
     private State state;
     private Vector3 hookshotPosition;
     private float hookshotSize;
+    private float sphereCastRadius = 1.5f;
 
     private enum State
     {
@@ -61,7 +62,7 @@ public class HookShot : MonoBehaviour
 
     private void HookShotStart()
     {
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire5"))
         {
             Vector3 origin = transform.position;
             Vector3 direction = transform.forward;
@@ -69,7 +70,7 @@ public class HookShot : MonoBehaviour
             RaycastHit raycastHit;
             Ray directionRay = new Ray(origin, direction);
 
-            if (Physics.Raycast(directionRay, out raycastHit, HookshotDistance))
+            if (Physics.SphereCast(directionRay, sphereCastRadius , out raycastHit, HookshotDistance))
             {
                 //Hit something
                 if (raycastHit.collider.CompareTag("HookHolder"))
