@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-
-    [HideInInspector] public Animator anim1;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public MeshRenderer mr;
     [HideInInspector] public CharacterController controller;
 
     //Effect
+    [SerializeField] private Animator anim1;
     [SerializeField] private Object DashRef;
     [SerializeField] private Object GetHitRef;
     [SerializeField] private Object PlayerDeadRef;
@@ -52,7 +51,11 @@ public class CharController : MonoBehaviour
         Idle,
         IdleRecovery,
         Attacking,
-
+        Dashing,
+        Grabing,
+        Throwing,
+        LaunchHook,
+        OnHook,
     }
 
     void Start()

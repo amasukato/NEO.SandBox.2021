@@ -17,7 +17,7 @@ public class Combo : MonoBehaviour
 
     private void Start()
     {
-        Player = GetComponent<CharController>();
+        //Player = GetComponent<CharController>();
     }
 
     //Remove ExitTime on Animation2 ++

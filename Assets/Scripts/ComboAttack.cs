@@ -5,9 +5,14 @@ using UnityEngine;
 public class ComboAttack : MonoBehaviour
 {
     public Animator WeaponAnim;
-    bool comboPossible;
-    int comboStep;
+    public Animator SubWeaponAnim;
+    public Animator PlayerAnim;
 
+    [SerializeField] private bool SubWeaponActive;
+    [SerializeField] private bool comboPossible;
+    [SerializeField] private int comboStep;
+
+    public Collider[] attackHitboxes;
 
     public void Update()
     {
@@ -15,15 +20,25 @@ public class ComboAttack : MonoBehaviour
         {
             Attack();
         }
+
+        if (Input.GetButtonDown("Left1"))
+        {
+            SubWeaponActive = true;
+        } else
+        {
+            SubWeaponActive = false;
+        }
     }
     public void Attack()
     {
 
         if(comboStep == 0)
         {
-            WeaponAnim.Play("AttackA");
+
+            WeaponAnim.Play("Standing 1H Magic Attack 01 0");
             comboStep = 1;
             return;
+
         }
 
         if(comboStep != 0)
@@ -43,14 +58,17 @@ public class ComboAttack : MonoBehaviour
 
     public void Combo()
     {
-        if (comboStep == 2)
+        if (comboStep >= 2)
         {
-            WeaponAnim.Play("AttackB");
+
+            WeaponAnim.Play("Standing Melee Attack 360 High 0");
+
+
 
         }
-        if (comboStep == 3)
+        if (comboStep >= 3)
         {
-            WeaponAnim.Play("AttackC");
+            WeaponAnim.Play("Sword And Shield Slash 0");
 
         }
     }
