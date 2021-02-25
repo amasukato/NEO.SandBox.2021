@@ -16,7 +16,7 @@ public class Player_KnockBack : MonoBehaviour
             Rigidbody enemy = other.gameObject.GetComponent<Rigidbody>();
             if (enemy != null)
             {
-                enemy.GetComponent<EnemyAI>().currentState = EnemyState.knocback;
+                enemy.GetComponent<EnemyAI>().currentState = EnemyState.knockback;
                 enemy.isKinematic = false;
                 Vector3 difference = enemy.transform.position - transform.position;
                 difference = difference.normalized * thrust;

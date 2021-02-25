@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Arena_Proto.unity
     guid: 83f1467f394a6d44895f5536f56f3fe3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Arene Animation chaine Hugo.unity
     guid: cff3deac48b7c7f4a8437cda4fd146a7
+  - enabled: 1
+    path: Assets/Scenes/TesType 02.unity
+    guid: a13dcb31c2b559241aa3257f3821c031
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 32acab870d605b74b9fb363795447583,
       type: 2}

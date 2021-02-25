@@ -9,7 +9,7 @@ public enum EnemyState
     idle,
     walk,
     attack,
-    knocback
+    knockback
 }
 
 public class EnemyAI : MonoBehaviour

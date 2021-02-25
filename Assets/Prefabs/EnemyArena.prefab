@@ -533,7 +533,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   matWhite: {fileID: 2100000, guid: 4956c32592aada14f88c5a5727235c87, type: 2}
-  explosionRef: {fileID: 8473548851201456898, guid: 64093a437d16e884188e0828259b22e3,
+  explosionRef: {fileID: 4755011999893699603, guid: 22b5616fd64663347990969d014fdb55,
     type: 3}
   player: {fileID: 0}
   whatIsGround:

@@ -92,7 +92,7 @@ public class CharController : MonoBehaviour
         Move();
 
 
-        movDir.x += gravity * Time.deltaTime;
+        movDir.y += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
 
         if (Input.GetButtonDown("Fire1"))
@@ -106,13 +106,13 @@ public class CharController : MonoBehaviour
 
         
         dashCD -= Time.deltaTime;
-        if (Input.GetButtonDown("Fire2") && IsOnTheGround == true)
+        if (Input.GetButtonDown("Fire2"))
         {
             if (dashCD <= 0)
             {
               //GameObject DashVFX = (GameObject)Instantiate(DashRef);
               //DashVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
-
+                
                 StartCoroutine(Dash());
             }
 
@@ -174,13 +174,6 @@ public class CharController : MonoBehaviour
         }
     }
 
-    IEnumerator FreezePosition()
-    {
-        yield return new WaitForSeconds(FreezeTime);
-
-        alreadyAttacked = false;
-    }
-
     IEnumerator Dash()
     {
         float startTime = Time.time;
@@ -188,8 +181,10 @@ public class CharController : MonoBehaviour
 
         while (Time.time < startTime + dashTime)
         {
-            
-            controller.Move(movDir* dashSpeed * Time.deltaTime);
+
+            controller.Move(movDir * dashSpeed * Time.deltaTime);
+
+
             dashCD = 0.3f;
 
             yield return null;
