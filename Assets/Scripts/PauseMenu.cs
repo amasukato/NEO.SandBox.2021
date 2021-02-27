@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetButtonDown("Reset"))
             if (GameIsPaused == true)
             {
                 LoadCurrentScene();
