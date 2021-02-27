@@ -6,6 +6,7 @@ public class ComboAttack : MonoBehaviour
 {
     public Animator WeaponAnim;
     public Animator SubWeaponAnim;
+    public Animator PlayerAnim;
 
     [SerializeField] private bool SubWeaponActive;
     [SerializeField] private bool comboPossible;
@@ -42,6 +43,7 @@ public class ComboAttack : MonoBehaviour
             else if (SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_1 0");
+                PlayerAnim.Play("Standing 1H Magic Attack 01 0");
                 comboStep = 1;
                 return;
             }
@@ -74,6 +76,7 @@ public class ComboAttack : MonoBehaviour
             else if ( SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_2 0"); //Standing Melee Attack 360 High 0
+                PlayerAnim.Play("Standing Melee Attack 360 High 0");
             }
 
         }
@@ -86,6 +89,7 @@ public class ComboAttack : MonoBehaviour
             else if (SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_3 0"); //Standing Melee Attack 360 High 0
+                PlayerAnim.Play("Sword And Shield Slash 0");
             }
 
         }

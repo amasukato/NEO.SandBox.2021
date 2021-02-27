@@ -54508,14 +54508,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.55
+  - time: 0.48333332
     functionName: Combo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.25
+  - time: 1.35
     functionName: ComboReset
     data: 
     objectReferenceParameter: {fileID: 0}
