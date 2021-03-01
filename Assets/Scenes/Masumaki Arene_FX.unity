@@ -9642,8 +9642,6 @@ MonoBehaviour:
   reset: 0
   resettime: 0
   attackHitboxes: []
-  alreadyAttack: 0
-  recovery: 0
   Player: {fileID: 0}
 --- !u!1 &465456928
 GameObject:
@@ -25414,8 +25412,6 @@ MonoBehaviour:
   reset: 0
   resettime: 0
   attackHitboxes: []
-  alreadyAttack: 0
-  recovery: 0
   Player: {fileID: 0}
 --- !u!1818360608 &754867262
 PositionConstraint:
@@ -40423,8 +40419,6 @@ MonoBehaviour:
   reset: 0
   resettime: 0
   attackHitboxes: []
-  alreadyAttack: 0
-  recovery: 0
   Player: {fileID: 0}
 --- !u!108 &1334414385 stripped
 Light:
@@ -44980,6 +44974,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5835749522888547917, guid: f1e876c156e61e84eadfa16129245b4d,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5835749522888547918, guid: f1e876c156e61e84eadfa16129245b4d,
         type: 3}
       propertyPath: m_Name
@@ -44988,7 +44987,7 @@ PrefabInstance:
     - target: {fileID: 5835749522888547954, guid: f1e876c156e61e84eadfa16129245b4d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 13.41
       objectReference: {fileID: 0}
     - target: {fileID: 5835749522888547954, guid: f1e876c156e61e84eadfa16129245b4d,
         type: 3}
@@ -53315,7 +53314,7 @@ PrefabInstance:
     - target: {fileID: 7593039851891075273, guid: 77cad6e9a40e863469221f8a475dc4d5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77cad6e9a40e863469221f8a475dc4d5, type: 3}
@@ -56420,8 +56419,6 @@ MonoBehaviour:
   reset: 0
   resettime: 0
   attackHitboxes: []
-  alreadyAttack: 0
-  recovery: 0
   Player: {fileID: 0}
 --- !u!1 &1845066102
 GameObject:
@@ -57801,7 +57798,7 @@ PrefabInstance:
     - target: {fileID: 4451101153671467038, guid: ac749d64557d8cc469e06e9ccd0cbfbd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4567422558171048288, guid: ac749d64557d8cc469e06e9ccd0cbfbd,
         type: 3}
@@ -60403,6 +60400,7 @@ MonoBehaviour:
   GetHitRef: {fileID: 0}
   PlayerDeadRef: {fileID: 0}
   matWhite: {fileID: 0}
+  grabthrow: {fileID: 0}
   HitPoints: 0
   MaxHitPoints: 0
   moveSpeed: 12
