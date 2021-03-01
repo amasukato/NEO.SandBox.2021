@@ -57,6 +57,10 @@ public class GrabThrow : MonoBehaviour
                 ObjectHolder.DetachChildren();
 
             }
+        else
+        {
+            CarryObject = false;
+        }
     }
 
 }

@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public enum EnemyState
 {
     idle,
-    walk,
-    attack,
-    knockback
+    Chasing,
+    Attacking,
+    GetHit,
+    knockback,
 }
 
 public class EnemyAI : MonoBehaviour
@@ -51,7 +52,6 @@ public class EnemyAI : MonoBehaviour
     // StateRange
     public float sightRange, attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
-
 
     private void Awake()
     {
@@ -121,6 +121,7 @@ public class EnemyAI : MonoBehaviour
     {
 
         agent.SetDestination(player.position);
+        currentState = EnemyState.Chasing;
 
     }
 
@@ -142,6 +143,8 @@ public class EnemyAI : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+
+        currentState = EnemyState.Attacking;
     }
 
     private void ResetAttack()
@@ -165,6 +168,7 @@ public class EnemyAI : MonoBehaviour
                 Invoke("ResetMaterial", .5f);
             }
         }
+        currentState = EnemyState.GetHit;
     }
 
     private void ResetMaterial()

@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
         health = GetComponent<CharController>().HitPoints;
         maxHealth = GetComponent<CharController>().MaxHitPoints;
         health = maxHealth;
+
     }
 
     // Update is called once per frame

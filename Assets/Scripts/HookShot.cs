@@ -17,6 +17,8 @@ public class HookShot : MonoBehaviour
     private float hookshotSize;
     private float sphereCastRadius = 1.5f;
 
+    public CharController Player;
+
     private enum State
     {
         Normal,
@@ -34,7 +36,9 @@ public class HookShot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        Player = GetComponent<CharController>();
+
     }
 
     // Update is called once per frame
@@ -91,7 +95,7 @@ public class HookShot : MonoBehaviour
     {
         hookshotTransform.LookAt(hookshotPosition);
 
-        float hookshotThrowSpeed = 40f;
+        float hookshotThrowSpeed = 50f;
         hookshotSize += hookshotThrowSpeed * Time.deltaTime;
         hookshotTransform.localScale = new Vector3(1, 1, hookshotSize);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class CharController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
@@ -37,19 +38,20 @@ public class CharController : MonoBehaviour
     public LayerMask groundMask;
     private bool IsOnTheGround;
 
-    public float turnSmoothTime;
+    public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
-    private bool alreadyAttacked;
     private float FreezeTime = 0.4f; // Duration of stop moving during Attack
 
     // Dash & Movement
     public Vector3 movDir;
 
     public State PlayerState = State.Idle;
+
     public enum State
     {
         Idle,
         IdleRecovery,
+        Moving,
         Attacking,
         Dashing,
         Grabing,
@@ -69,12 +71,59 @@ public class CharController : MonoBehaviour
 
     }
 
-
-    // Update is called once per frame
     void Update()
     {
+        /*
+        switch (PlayerState)
+        {
+            default:
+            case State.Idle:
+                Move();
+                Dashing();
+                Attack();
 
-        
+                break;
+
+            case State.IdleRecovery:
+                Move();
+                Dashing();
+                Attack();
+
+                break;
+
+            case State.Attacking:
+
+                break;
+
+            case State.Moving:
+                Move();
+                Dashing();
+
+                break;
+
+            case State.Dashing:
+                Move();
+                break;
+
+            case State.Grabing:
+                Move();
+                break;
+
+            case State.Throwing:
+
+                break;
+
+            case State.LaunchHook:
+
+                break;
+
+            case State.OnHook:
+
+                break;
+
+        }
+        */
+
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(IsOnTheGround && movDir.y <=0)
@@ -87,9 +136,10 @@ public class CharController : MonoBehaviour
         {
             anim1.SetTrigger("idle1");
         }
-        
 
         Move();
+        Dashing();
+
 
 
         movDir.y += gravity * Time.deltaTime;
@@ -99,24 +149,9 @@ public class CharController : MonoBehaviour
         {
             Attack();
         }
-        else
-        {
-            alreadyAttacked = false;
-        }
 
         
         dashCD -= Time.deltaTime;
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if (dashCD <= 0)
-            {
-              //GameObject DashVFX = (GameObject)Instantiate(DashRef);
-              //DashVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
-                
-                StartCoroutine(Dash());
-            }
-
-        }
         //Grab();
 
 
@@ -125,9 +160,9 @@ public class CharController : MonoBehaviour
     void Move()
     {
         // Movement Animation
-        
-        //anim2.SetTrigger("Run");
 
+        //anim2.SetTrigger("Run");
+ 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -154,43 +189,49 @@ public class CharController : MonoBehaviour
             anim1.SetBool("Run1", true);
         }
 
-
+       //PlayerState = State.Moving;
 
     }
 
     void Attack()
     {
         // Attack Weapon Animation
-        
-        
-
         // Attack Pattern Character Animation
         // anim2.SetTrigger("AttackPattern");
-        if (!alreadyAttacked)
-        {
-            alreadyAttacked = true;
-            //StartCoroutine(FreezePosition());
-
-        }
     }
 
-    IEnumerator Dash()
+    void Dashing()
     {
-        float startTime = Time.time;
-        anim1.SetTrigger("Dash");
-
-        while (Time.time < startTime + dashTime)
+        if (Input.GetButtonDown("Fire2"))
         {
+            if (dashCD <= 0)
+            {
+                //GameObject DashVFX = (GameObject)Instantiate(DashRef);
+                //DashVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
 
-            controller.Move(movDir * dashSpeed * Time.deltaTime);
+                StartCoroutine(Dash());
+                PlayerState = State.Dashing;
+            }
+
+        }
+
+        IEnumerator Dash()
+        {
+            float startTime = Time.time;
+            anim1.SetTrigger("Dash");
+
+            while (Time.time < startTime + dashTime)
+            {
+
+                controller.Move(movDir * dashSpeed * Time.deltaTime);
 
 
-            dashCD = 0.3f;
+                dashCD = 0.3f;
 
-            yield return null;
+                yield return null;
+            }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
