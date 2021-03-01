@@ -9,6 +9,7 @@ public enum EnemyState
     idle,
     Chasing,
     Attacking,
+    Runaway,
     GetHit,
     knockback,
 }
@@ -44,6 +45,7 @@ public class EnemyAI : MonoBehaviour
     public Vector3 walkPoint;
     public bool walkPointSet;
     public float walkPointRange;
+    public float DistanceToRunaway = 10f;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -80,10 +82,16 @@ public class EnemyAI : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatISPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatISPlayer);
 
-
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if ( HitPoints >= 25/100 * MaxHitPoints)
+        {
+            if (!playerInSightRange && !playerInAttackRange) Patroling();
+            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+            if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        }
+        else
+        {
+            Runaway();
+        }
 
 
     }
@@ -125,6 +133,31 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    private void Runaway()
+    {
+        if (!RunAway)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            if (distance < DistanceToRunaway)
+            {
+                Vector3 distanceToPlayer = transform.position - player.transform.position;
+
+                Vector3 newPos = transform.position + distanceToPlayer;
+
+                agent.SetDestination(newPos);
+            }
+            RunAway = true;
+            currentState = EnemyState.Runaway;
+        }
+        else
+        {
+            ChasePlayer();
+            if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        }
+
+    }
+
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
@@ -145,6 +178,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         currentState = EnemyState.Attacking;
+
     }
 
     private void ResetAttack()
@@ -167,6 +201,8 @@ public class EnemyAI : MonoBehaviour
             {
                 Invoke("ResetMaterial", .5f);
             }
+
+
         }
         currentState = EnemyState.GetHit;
     }

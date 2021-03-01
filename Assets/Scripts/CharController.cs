@@ -17,7 +17,7 @@ public class CharController : MonoBehaviour
     [SerializeField] private Object PlayerDeadRef;
     [SerializeField] private Material matWhite;
     private Material matDefault;
-
+    public GrabThrow grabthrow;
 
     //Stats
     public float HitPoints;
@@ -28,8 +28,6 @@ public class CharController : MonoBehaviour
     private float dashSpeed = 20;
     public float dashTime = 0.25f;
     public float dashCD = 0.3f;
-
-    private float JumpForce;
 
     //States
 
@@ -68,12 +66,13 @@ public class CharController : MonoBehaviour
         mr = GetComponent<MeshRenderer>();
         //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
+        grabthrow = GetComponent<GrabThrow>();
 
     }
 
     void Update()
     {
-        /*
+        
         switch (PlayerState)
         {
             default:
@@ -92,7 +91,7 @@ public class CharController : MonoBehaviour
                 break;
 
             case State.Attacking:
-
+                Dashing();
                 break;
 
             case State.Moving:
@@ -109,10 +108,6 @@ public class CharController : MonoBehaviour
                 Move();
                 break;
 
-            case State.Throwing:
-
-                break;
-
             case State.LaunchHook:
 
                 break;
@@ -122,7 +117,7 @@ public class CharController : MonoBehaviour
                 break;
 
         }
-        */
+        
 
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -137,20 +132,17 @@ public class CharController : MonoBehaviour
             anim1.SetTrigger("idle1");
         }
 
-        Move();
-        Dashing();
+        //Move();
+        //Dashing();
 
 
 
         movDir.y += gravity * Time.deltaTime;
         //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
 
-        
+        //Attack();
+
         dashCD -= Time.deltaTime;
         //Grab();
 
@@ -159,9 +151,6 @@ public class CharController : MonoBehaviour
 
     void Move()
     {
-        // Movement Animation
-
-        //anim2.SetTrigger("Run");
  
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -180,24 +169,33 @@ public class CharController : MonoBehaviour
             controller.Move( movDir.normalized * moveSpeed * Time.deltaTime);
             
         }
+        // animation movement
         if (horizontal == 0 && vertical == 0)
         {
             anim1.SetBool("Run1", false);
+            PlayerState = State.Idle;
         }
         else
         {
             anim1.SetBool("Run1", true);
+            PlayerState = State.Moving;
         }
-
-       //PlayerState = State.Moving;
 
     }
 
     void Attack()
     {
-        // Attack Weapon Animation
-        // Attack Pattern Character Animation
-        // anim2.SetTrigger("AttackPattern");
+        /*
+        if (Input.GetButtonDown("Fire1"))
+        {
+            // Attack Weapon Animation
+            // Attack Pattern Character Animation
+            anim1.Play("Standing 1H Magic Attack 01 0");
+            PlayerState = State.Attacking;
+        }
+
+         PlayerState = State.Idle;
+         */
     }
 
     void Dashing()
@@ -230,6 +228,7 @@ public class CharController : MonoBehaviour
 
                 yield return null;
             }
+            PlayerState = State.Idle;
         }
     }
     private void OnTriggerEnter(Collider other)

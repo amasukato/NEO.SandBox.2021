@@ -12,7 +12,6 @@ public class Combo : MonoBehaviour
     public float resettime = 1f;
 
     public Collider[] attackHitboxes;
-    public bool alreadyAttack, recovery;
     public CharController Player;
 
     private void Start()

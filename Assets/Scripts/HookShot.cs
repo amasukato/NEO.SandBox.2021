@@ -29,19 +29,13 @@ public class HookShot : MonoBehaviour
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>(); 
+        characterController = GetComponent<CharacterController>();
+        Player = GetComponent<CharController>();
         state = State.Normal;
         hookshotTransform.gameObject.SetActive(false);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        Player = GetComponent<CharController>();
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (state)
@@ -49,14 +43,17 @@ public class HookShot : MonoBehaviour
             default:
             case State.Normal:
                 HookShotStart();
+
                 break;
 
             case State.HookshotThrown:
                 HookshotThrown();
+
                 break;
 
             case State.HookShotFlyingPlayer:
                 HookShotMovement();
+
                 break;
         }
 
@@ -85,9 +82,11 @@ public class HookShot : MonoBehaviour
                     hookshotTransform.gameObject.SetActive(true);
                     hookshotTransform.localScale = Vector3.zero;
                     state = State.HookshotThrown;
+                    Player.PlayerState = CharController.State.LaunchHook;
                 }
 
             }
+
         }
     }
 
@@ -103,13 +102,15 @@ public class HookShot : MonoBehaviour
         {
             state = State.HookShotFlyingPlayer;
         }
+ 
     }
 
     private void HookShotMovement()
     {
+        Player.PlayerState = CharController.State.OnHook;
         Vector3 hookshotDir = (hookshotPosition - transform.position).normalized;
 
-        float hookshotSpeedMin = 30f;
+        float hookshotSpeedMin = 25f;
         float hookshotSpeedMax = 40f;
         float hookshotSpeed = Mathf.Clamp(Vector3.Distance(transform.position, hookshotPosition), hookshotSpeedMin, hookshotSpeedMax);
         float hookshotSpeedMultiplier = 2f;
@@ -122,6 +123,7 @@ public class HookShot : MonoBehaviour
         {
             // Reached Hookshot Position
             state = State.Normal;
+            Player.PlayerState = CharController.State.Idle;
             hookshotTransform.gameObject.SetActive(false);
         }   
     }

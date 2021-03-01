@@ -12,6 +12,12 @@ public class GrabThrow : MonoBehaviour
     private float sphereCastRadius = 1.5f;
     public float grabDistance = 3.5f;
 
+    public CharController Player;
+
+    public void Start()
+    {
+        Player = GetComponent<CharController>();
+    }
     public void Update()
     {
         Grab();
@@ -36,14 +42,23 @@ public class GrabThrow : MonoBehaviour
                     if(CarryObject == true)
                     {
                         Item = hit.collider.gameObject;
-                        Item.transform.SetParent(ObjectHolder);
+                        Item.transform.parent = ObjectHolder;
                         Item.gameObject.transform.position = ObjectHolder.position;
                         Item.GetComponent<Rigidbody>().isKinematic = true;
                         Item.GetComponent<Rigidbody>().useGravity = false;
                     }
+                    Player.PlayerState = CharController.State.Grabing;
                 }
+                else
+                {
+                    CarryObject = false;
+                }
+
             }
+           // Player.PlayerState = CharController.State.Grabing;
         }
+
+
         else if (Input.GetButtonUp("Fire6"))
             {
                 CarryObject = false;
@@ -55,12 +70,15 @@ public class GrabThrow : MonoBehaviour
 
                 //Item.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 ObjectHolder.DetachChildren();
+            //Player.PlayerState = CharController.State.Idle;
 
-            }
+        }
         else
         {
             CarryObject = false;
+            //Player.PlayerState = CharController.State.Idle;
         }
+
     }
 
 }

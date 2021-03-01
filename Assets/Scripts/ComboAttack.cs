@@ -10,6 +10,7 @@ public class ComboAttack : MonoBehaviour
 
     public CharController Player;
 
+
     [SerializeField] private bool SubWeaponActive;
     [SerializeField] private bool comboPossible;
     [SerializeField] private int comboStep;
@@ -19,15 +20,19 @@ public class ComboAttack : MonoBehaviour
 
     public void Start()
     {
-        Player = GetComponent<CharController>();
+        Player = GetComponentInParent<CharController>();
+
     }
 
 
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") &&
+           (Player.PlayerState == CharController.State.Idle || Player.PlayerState == CharController.State.IdleRecovery || 
+            Player.PlayerState == CharController.State.Moving || Player.PlayerState == CharController.State.Attacking)) //
         {
             Attack();
+            Player.PlayerState = CharController.State.Attacking;
         }
 
         if (Input.GetButtonDown("Left1"))
@@ -59,7 +64,7 @@ public class ComboAttack : MonoBehaviour
 
         }
 
-        if(comboStep != 0)
+        else if(comboStep != 0)
         {
             if(comboPossible)
             {
@@ -80,27 +85,28 @@ public class ComboAttack : MonoBehaviour
         {
             if(SubWeaponActive == false)
             {
-                WeaponAnim.Play("Standing Melee Attack 360 High 0"); //Standing Melee Attack 360 High 0
+                WeaponAnim.Play("Standing Melee Attack 360 High 0"); 
             }
             else if ( SubWeaponActive == true)
             {
-                SubWeaponAnim.Play("chaine_2 0"); //Standing Melee Attack 360 High 0
+                SubWeaponAnim.Play("chaine_2 0");
                 PlayerAnim.Play("Standing Melee Attack 360 High 0");
             }
+            Player.PlayerState = CharController.State.IdleRecovery;
 
         }
         if (comboStep >= 3)
         {
             if(SubWeaponActive == false)
             {
-                WeaponAnim.Play("Sword And Shield Slash 0"); //Sword And Shield Slash 0
+                WeaponAnim.Play("Sword And Shield Slash 0");
             }
             else if (SubWeaponActive == true)
             {
-                SubWeaponAnim.Play("chaine_3 0"); //Standing Melee Attack 360 High 0
+                SubWeaponAnim.Play("chaine_3 0");
                 PlayerAnim.Play("Sword And Shield Slash 0");
             }
-
+            Player.PlayerState = CharController.State.IdleRecovery;
         }
     }
 
@@ -108,5 +114,6 @@ public class ComboAttack : MonoBehaviour
     {
         comboPossible = false;
         comboStep = 0;
+        Player.PlayerState = CharController.State.Idle;
     }
 }
