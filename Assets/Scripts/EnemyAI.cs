@@ -93,7 +93,6 @@ public class EnemyAI : MonoBehaviour
             Runaway();
         }
 
-
     }
 
     private void Patroling()
@@ -129,7 +128,6 @@ public class EnemyAI : MonoBehaviour
     {
 
         agent.SetDestination(player.position);
-        currentState = EnemyState.Chasing;
 
     }
 
@@ -148,7 +146,6 @@ public class EnemyAI : MonoBehaviour
                 agent.SetDestination(newPos);
             }
             RunAway = true;
-            currentState = EnemyState.Runaway;
         }
         else
         {
@@ -177,7 +174,6 @@ public class EnemyAI : MonoBehaviour
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
 
-        currentState = EnemyState.Attacking;
 
     }
 
@@ -199,12 +195,11 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                Invoke("ResetMaterial", .5f);
+                Invoke("ResetMaterial", .3f);
             }
 
 
         }
-        currentState = EnemyState.GetHit;
     }
 
     private void ResetMaterial()

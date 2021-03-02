@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public MeshRenderer mr;
+    [HideInInspector] public SkinnedMeshRenderer mr;
     [HideInInspector] public CharacterController controller;
 
     //Effect
@@ -17,7 +17,7 @@ public class CharController : MonoBehaviour
     [SerializeField] private Object PlayerDeadRef;
     [SerializeField] private Material matWhite;
     private Material matDefault;
-    public GrabThrow grabthrow;
+
 
     //Stats
     public float HitPoints;
@@ -63,10 +63,9 @@ public class CharController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
-        mr = GetComponent<MeshRenderer>();
         //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
-        grabthrow = GetComponent<GrabThrow>();
+        mr = GetComponentInChildren<SkinnedMeshRenderer>();
 
     }
 

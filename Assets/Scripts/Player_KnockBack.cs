@@ -37,5 +37,6 @@ public class Player_KnockBack : MonoBehaviour
             enemy.isKinematic = true;
             enemy.GetComponent<EnemyAI>().currentState = EnemyState.idle;
         }
+
     }
 }
