@@ -5,13 +5,14 @@ using UnityEngine;
 public class Consumable : MonoBehaviour
 {
     //add value
+    public float healingValue = 5f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            // Add value
-
+            Health Player = other.gameObject.GetComponent<Health>();
+            Player.Heal(healingValue);
             Destroy(gameObject);
         }
     }

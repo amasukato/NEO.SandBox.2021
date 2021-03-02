@@ -21,17 +21,12 @@ public class ChangeColorMaterial : MonoBehaviour
     {
         if ( other.gameObject.tag == "Player")
         {
-            var otherRenderer = other.gameObject.GetComponent<Renderer>();
+            rend.sharedMaterial = material[1];
 
-            if (otherRenderer != null)
-            {
-                rend.sharedMaterial = material[1];
-
-            }
-            else
-            {
-                rend.sharedMaterial = material[2];
-            }
+        }
+        else
+        {
+            rend.sharedMaterial = material[0];
         }
 
     }

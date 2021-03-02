@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
 public class CharController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public SkinnedMeshRenderer mr;
     [HideInInspector] public CharacterController controller;
 
     //Effect
@@ -15,9 +15,6 @@ public class CharController : MonoBehaviour
     [SerializeField] private Object DashRef;
     [SerializeField] private Object GetHitRef;
     [SerializeField] private Object PlayerDeadRef;
-    [SerializeField] private Material matWhite;
-    private Material matDefault;
-
 
     //Stats
     public float HitPoints;
@@ -28,6 +25,7 @@ public class CharController : MonoBehaviour
     private float dashSpeed = 20;
     public float dashTime = 0.25f;
     public float dashCD = 0.3f;
+    public float dashMaxCD = 0.5f;
 
     //States
 
@@ -38,10 +36,10 @@ public class CharController : MonoBehaviour
 
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
-    private float FreezeTime = 0.4f; // Duration of stop moving during Attack
 
     // Dash & Movement
     public Vector3 movDir;
+    public Image dashIMG;
 
     public State PlayerState = State.Idle;
 
@@ -63,15 +61,11 @@ public class CharController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
-        //matWhite = Resources.Load("White", typeof(Material)) as Material;
-        matDefault = mr.material;
-        mr = GetComponentInChildren<SkinnedMeshRenderer>();
 
     }
 
     void Update()
     {
-        
         switch (PlayerState)
         {
             default:
@@ -116,7 +110,6 @@ public class CharController : MonoBehaviour
                 break;
 
         }
-        
 
         IsOnTheGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -131,19 +124,10 @@ public class CharController : MonoBehaviour
             anim1.SetTrigger("idle1");
         }
 
-        //Move();
-        //Dashing();
-
-
 
         movDir.y += gravity * Time.deltaTime;
-        //controller.Move(movDir * Time.deltaTime); // pas besoin de gravité réaliste donc pas besoin de doubler
-
-
-        //Attack();
 
         dashCD -= Time.deltaTime;
-        //Grab();
 
 
     }
@@ -201,6 +185,7 @@ public class CharController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2"))
         {
+
             if (dashCD <= 0)
             {
                 //GameObject DashVFX = (GameObject)Instantiate(DashRef);
@@ -223,43 +208,34 @@ public class CharController : MonoBehaviour
                 controller.Move(movDir * dashSpeed * Time.deltaTime);
 
 
-                dashCD = 0.3f;
+                dashCD = 0.5f;
 
                 yield return null;
             }
             PlayerState = State.Idle;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
                 GetComponent<Health>().Damage(1);
                 HitPoints--;
-                mr.material = matWhite;
                 // VFX GetHIt here
                 //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
                 //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
 
                 if (HitPoints <= 0)
                 {
-                    // Dead animation
 
-                    //GameObject Player.Dead.VFX = (GameObject)Instantiate(PlayerDeadRef);
-                    //PlayerDead.VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
-
-                    //Game over screen
                 }
                 else
                 {
-                    Invoke("ResetMaterial", .5f);
+
                 }
 
         }
     }
 
-    private void ResetMaterial()
-    {
-        mr.material = matDefault;
-    }
 }
