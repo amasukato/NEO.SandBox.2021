@@ -35,13 +35,18 @@ public class ComboAttack : MonoBehaviour
             Player.PlayerState = CharController.State.Attacking;
         }
 
-        if (Input.GetButtonDown("Left1"))
+        if (Input.GetButtonDown("Left1") )
         {
-            SubWeaponActive = true;
-        } else if (Input.GetButtonUp("Left1"))
-        {
-            SubWeaponActive = false;
+            if (!SubWeaponActive)
+            {
+                SubWeaponActive = true;
+            }
+            else
+            {
+                SubWeaponActive = false;
+            }
         }
+
     }
     public void Attack()
     {

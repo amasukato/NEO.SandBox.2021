@@ -22,11 +22,19 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject PauseMenuUI;
     public GameObject GameOverMenuUI;
+    public Image ChainActive;
+    bool ChainIsActive;
 
     //Abilities
     public Image dashImage;
     public float cooldown1 = 0.5f;
     bool isCooldown = false;
+
+    public Image SPbar;
+    public float cooldown2 = 30f;
+    bool isCooldown2 = false;
+
+
 
     private void Start()
     {
@@ -36,6 +44,10 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         DashCD();
+
+        SPfiller();
+        SPColorChanger();
+        ChainIcon();
 
         if (Input.GetButtonDown("Pause"))
         {
@@ -78,6 +90,26 @@ public class PauseMenu : MonoBehaviour
         EnemyCountText.text = enemies.Length.ToString() + " Enemies left ";
     }
 
+    void ChainIcon()
+    {
+        if (Input.GetButtonDown("Left1"))
+        {
+            if (!ChainIsActive)
+            {
+                ChainIsActive = true;
+                var ActiveColor = ChainActive.color;
+                ActiveColor.a = 1f;
+                ChainActive.color = ActiveColor; 
+            }
+            else
+            {
+                ChainIsActive = false;
+                var ActiveColor = ChainActive.color;
+                ActiveColor.a = 0f;
+                ChainActive.color = ActiveColor;
+            }
+        }
+    }
     void DashCD()
     {
         if (Input.GetButtonDown("Fire2") && isCooldown == false)
@@ -96,6 +128,25 @@ public class PauseMenu : MonoBehaviour
                 isCooldown = false;
             }
         }
+    }
+
+    void SPfiller()
+    {
+        SPbar.fillAmount += 1 / cooldown2 * Time.deltaTime;
+
+        if (SPbar.fillAmount <= 0)
+        {
+            SPbar.fillAmount = 0;
+
+        }
+
+    }
+
+    void SPColorChanger()
+    {
+        Color SPColor = Color.Lerp(Color.yellow, Color.blue, 0 / 1);
+
+        SPbar.color = SPColor;
     }
     void Resume()
     {
