@@ -222,9 +222,9 @@ public class CharController : MonoBehaviour
         {
                 GetComponent<Health>().Damage(1);
                 HitPoints--;
-                // VFX GetHIt here
-                //GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
-                //GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z);
+                // VFX GetHit here
+                GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
+                GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
 
                 if (HitPoints <= 0)
                 {

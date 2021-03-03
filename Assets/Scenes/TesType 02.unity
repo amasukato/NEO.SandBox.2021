@@ -21274,12 +21274,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608846797}
   m_Mesh: {fileID: 765186906}
---- !u!4 &613596965 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2565274429651451556, guid: 17373077dae4f9a46be20e7ede9c2bf7,
-    type: 3}
-  m_PrefabInstance: {fileID: 6966686344399952818}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &622303256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1995607009308656430, guid: df889c435e567ec409c86d9041790433,
@@ -30466,7 +30460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &899039270
 Transform:
   m_ObjectHideFlags: 0
@@ -31069,7 +31063,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &922628717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36935,7 +36929,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1200887786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52359,50 +52353,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783141596}
   m_Mesh: {fileID: 180020965}
---- !u!1 &1792131125
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1792131126}
-  - component: {fileID: 1792131127}
-  m_Layer: 0
-  m_Name: Collider 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1792131126
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792131125}
-  m_LocalRotation: {x: -0.9656875, y: 0.07560657, z: -0.24740489, w: 0.022850974}
-  m_LocalPosition: {x: 0, y: 0, z: 11}
-  m_LocalScale: {x: 3.3022952, y: 2.4325843, z: 3.333275}
-  m_Children: []
-  m_Father: {fileID: 613596965}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1792131127
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792131125}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1802129145
 GameObject:
   m_ObjectHideFlags: 0
@@ -61529,7 +61479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u25A1  - LeftClick -  Attack\nHold L1 / V during Attack - Whip Attack\nX
+  m_text: "\u25A1  - LeftClick -  Attack\nL1 / V  - Switch / Revert to Whip Attack\nX
     / RightClick - Dash\nR1 / R- Hook OrangeBox\nR2 / C - Carry VioletBox\nOptions
     / Space - Pause"
   m_isRightToLeft: 0
@@ -61600,9 +61550,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -144.37555, w: -91.77362}
   m_textInfo:
     textComponent: {fileID: 2007192823}
-    characterCount: 158
+    characterCount: 159
     spriteCount: 0
-    spaceCount: 36
+    spaceCount: 38
     wordCount: 30
     linkCount: 0
     lineCount: 6
@@ -65735,6 +65685,12 @@ PrefabInstance:
       propertyPath: dashCD
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6966686344829321036, guid: 17373077dae4f9a46be20e7ede9c2bf7,
+        type: 3}
+      propertyPath: GetHitRef
+      value: 
+      objectReference: {fileID: 800472572951258222, guid: c766f8b295ef0b945858958c5c442e8f,
+        type: 3}
     - target: {fileID: 6966686344829321037, guid: 17373077dae4f9a46be20e7ede9c2bf7,
         type: 3}
       propertyPath: m_IsTrigger
