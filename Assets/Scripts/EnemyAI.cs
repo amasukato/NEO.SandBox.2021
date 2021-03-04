@@ -217,6 +217,8 @@ public class EnemyAI : MonoBehaviour
     public void Dead()
     {
         //play dead_animation here
+        FindObjectOfType<AudioManager>().Play("Enemy_Dead");
+
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
 

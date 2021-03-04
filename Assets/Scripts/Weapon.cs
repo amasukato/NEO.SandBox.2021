@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Health health = other.GetComponentInParent<Health>();
+        HUD health = other.GetComponentInParent<HUD>();
 
         if ( health !=null)
         {

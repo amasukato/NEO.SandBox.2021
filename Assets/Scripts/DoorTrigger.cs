@@ -17,6 +17,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             animator.SetBool("IsOpening", true);
+            FindObjectOfType<AudioManager>().Play("DoorOpen");
         }
     }
 
@@ -26,6 +27,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             animator.SetBool("IsOpening", false);
+            FindObjectOfType<AudioManager>().Play("DoorClose");
         }
     }
     

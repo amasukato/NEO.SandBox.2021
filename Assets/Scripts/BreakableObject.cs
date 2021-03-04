@@ -22,6 +22,8 @@ public class BreakableObject : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(particleRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
+        FindObjectOfType<AudioManager>().Play("Broken_Vase");
+
         Destroy(gameObject);
     }
 }

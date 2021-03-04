@@ -10,15 +10,21 @@ public class CharController : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
 
+
     //Effect
     [SerializeField] private Animator anim1;
     [SerializeField] private Object DashRef;
     [SerializeField] private Object GetHitRef;
     [SerializeField] private Object PlayerDeadRef;
+    [SerializeField] private Object SpecialAttackRef;
+    private SkillPoint skill;
+
 
     //Stats
     public float HitPoints;
     public float MaxHitPoints;
+    public float ManaPoints;
+    public float MaxManaPoints;
 
     private float gravity = -9.81f;
     public float moveSpeed = 4f;
@@ -62,6 +68,7 @@ public class CharController : MonoBehaviour
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
 
+
     }
 
     void Update()
@@ -73,6 +80,7 @@ public class CharController : MonoBehaviour
                 Move();
                 Dashing();
                 Attack();
+                SpecialAttack();
 
                 break;
 
@@ -80,11 +88,13 @@ public class CharController : MonoBehaviour
                 Move();
                 Dashing();
                 Attack();
+                SpecialAttack();
 
                 break;
 
             case State.Attacking:
                 Dashing();
+
                 break;
 
             case State.Moving:
@@ -181,6 +191,22 @@ public class CharController : MonoBehaviour
          */
     }
 
+    void SpecialAttack()
+    {
+        if (Input.GetButtonDown("Fire4") && ManaPoints >= 20 )
+        {
+            GetComponent<HUD>().SpendMana(20);
+            anim1.Play("Sword And Shield Slash 0");
+
+            FindObjectOfType<AudioManager>().Play("PlayerSpecialAttack");
+
+            GameObject SpecialAttack_VFX = (GameObject)Instantiate(SpecialAttackRef);
+            SpecialAttack_VFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
+
+            PlayerState = State.Attacking;
+        }
+    }
+
     void Dashing()
     {
         if (Input.GetButtonDown("Fire2"))
@@ -192,6 +218,8 @@ public class CharController : MonoBehaviour
                 //DashVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
 
                 StartCoroutine(Dash());
+
+                //FindObjectOfType<AudioManager>().Play("PlayerDash");
                 PlayerState = State.Dashing;
             }
 
@@ -220,8 +248,8 @@ public class CharController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
-                GetComponent<Health>().Damage(1);
-                HitPoints--;
+                GetComponent<HUD>().Damage(1);
+
                 // VFX GetHit here
                 GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
                 GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
@@ -236,6 +264,16 @@ public class CharController : MonoBehaviour
                 }
 
         }
+    }
+    public void TakeDamage(float damage)
+    {
+        HitPoints -= damage;
+
+    }
+
+    public void TakeHeal (float healing)
+    {
+        HitPoints += healing;
     }
 
 }

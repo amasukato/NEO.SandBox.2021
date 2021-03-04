@@ -30,12 +30,6 @@ public class PauseMenu : MonoBehaviour
     public float cooldown1 = 0.5f;
     bool isCooldown = false;
 
-    public Image SPbar;
-    public float cooldown2 = 30f;
-    bool isCooldown2 = false;
-
-
-
     private void Start()
     {
         dashImage.fillAmount = 0;
@@ -45,8 +39,6 @@ public class PauseMenu : MonoBehaviour
     {
         DashCD();
 
-        SPfiller();
-        SPColorChanger();
         ChainIcon();
 
         if (Input.GetButtonDown("Pause"))
@@ -54,7 +46,8 @@ public class PauseMenu : MonoBehaviour
             if (GameIsPaused)
             {
                 Resume();
-            } else
+            }
+            else
             {
                 Pause();
 
@@ -99,7 +92,8 @@ public class PauseMenu : MonoBehaviour
                 ChainIsActive = true;
                 var ActiveColor = ChainActive.color;
                 ActiveColor.a = 1f;
-                ChainActive.color = ActiveColor; 
+                ChainActive.color = ActiveColor;
+                FindObjectOfType<AudioManager>().Play("EquipChain");
             }
             else
             {
@@ -107,6 +101,7 @@ public class PauseMenu : MonoBehaviour
                 var ActiveColor = ChainActive.color;
                 ActiveColor.a = 0f;
                 ChainActive.color = ActiveColor;
+                FindObjectOfType<AudioManager>().Play("UnEquipChain");
             }
         }
     }
@@ -130,24 +125,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void SPfiller()
-    {
-        SPbar.fillAmount += 1 / cooldown2 * Time.deltaTime;
 
-        if (SPbar.fillAmount <= 0)
-        {
-            SPbar.fillAmount = 0;
-
-        }
-
-    }
-
-    void SPColorChanger()
-    {
-        Color SPColor = Color.Lerp(Color.yellow, Color.blue, 0 / 1);
-
-        SPbar.color = SPColor;
-    }
     void Resume()
     {
         PauseMenuUI.SetActive(false);

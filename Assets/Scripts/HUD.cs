@@ -3,35 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class HUD : MonoBehaviour
 {
 
     public Text healthText;
     public Image healthBar;
 
+    public Image ManaBar;
+
+    public CharController charController;
+
     float health; 
     float maxHealth;
+
+    float mana;
+    float maxMana;
+
     float lerpSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
         health = GetComponent<CharController>().HitPoints;
         maxHealth = GetComponent<CharController>().MaxHitPoints;
-        health = maxHealth;
+
+        mana = GetComponent<CharController>().ManaPoints;
+        maxMana = GetComponent<CharController>().MaxManaPoints;
+        mana = maxMana;
+
+        charController = GetComponent<CharController>();
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        healthText.text = "HP " + health;
+        healthText.text = "HP : " + health;
         if (health > maxHealth) health = maxHealth;
+        if (mana > maxMana) mana = maxMana;
 
         lerpSpeed = 3f * Time.deltaTime;
 
         HealthBarFilter();
         ColorChanger();
+
+        ManaBarFilter();
+
     }
 
     void HealthBarFilter()
@@ -39,6 +55,11 @@ public class Health : MonoBehaviour
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, health / maxHealth, lerpSpeed);
 
 
+    }
+
+    void ManaBarFilter()
+    {
+        ManaBar.fillAmount = Mathf.Lerp(ManaBar.fillAmount, mana / maxMana, lerpSpeed);
     }
 
     void ColorChanger()
@@ -53,6 +74,7 @@ public class Health : MonoBehaviour
         if (health > 0 )
         {
             health -= damagePoints;
+            charController.HitPoints -= damagePoints;
         }
     }
 
@@ -61,6 +83,29 @@ public class Health : MonoBehaviour
         if (health < maxHealth)
         {
             health += healingPoints;
+            charController.HitPoints += healingPoints;
         }
     }
+
+    public void GainMana(float gainMana)
+    {
+        if (mana < maxMana)
+        {
+            mana += gainMana;
+            charController.ManaPoints += gainMana;
+        }
+
+    }
+
+    public void SpendMana(float spendMana)
+    {
+        if (mana >= spendMana)
+        {
+            mana -= spendMana;
+            charController.ManaPoints -= spendMana;
+        }
+
+    }
+
+
 }
