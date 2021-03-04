@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public static int countID = 0;
-    
+
     [SerializeField] private GameObject Player;
     public Transform RespawnPoint;
 
@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         {
             RespawnPlayer();
         }
+        FindObjectOfType<AudioManager>().Play("ArenaTheme");
+
     }
 
     public void RespawnPlayer()
