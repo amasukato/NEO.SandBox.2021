@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b9fbfc7c00b9c5846ac7490a1e8c49a7
+guid: 295403dc88f741847aee4554be95fba6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,8 +8,8 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: f53f5fc499d31e44b9deee84d28a9ee8, type: 3}
-  rootGameObjectId: 
-  rootGameObjectName: 
+  rootGameObjectId: combo3
+  rootGameObjectName: combo3
   streamSettings:
     normals: 1
     tangents: 1
@@ -17,19 +17,19 @@ ScriptedImporter:
     importVisibility: 1
     scaleFactor: 0.01
     swapHandedness: 1
-    flipFaces: 1
+    flipFaces: 0
     interpolateSamples: 1
     importPointPolygon: 1
     importLinePolygon: 1
     importTrianglePolygon: 1
     importXform: 1
-    importCameras: 0
+    importCameras: 1
     importMeshes: 1
-    importPoints: 1
+    importPoints: 0
   abcStartTime: 0
-  abcEndTime: 1.8666666666666667
+  abcEndTime: 0.8333333333333334
   startTime: 0
-  endTime: 1.8666666666666667
+  endTime: 0.8333333333333334
   importWarning: 
   varyingTopologyMeshNames: []
   splittingMeshNames: []

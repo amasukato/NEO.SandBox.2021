@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 295403dc88f741847aee4554be95fba6
+guid: 6c3ea7c0e545aca419b9168bfc774a57
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,8 +8,8 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: f53f5fc499d31e44b9deee84d28a9ee8, type: 3}
-  rootGameObjectId: 
-  rootGameObjectName: 
+  rootGameObjectId: combo1
+  rootGameObjectName: combo1
   streamSettings:
     normals: 1
     tangents: 1
@@ -27,9 +27,9 @@ ScriptedImporter:
     importMeshes: 1
     importPoints: 0
   abcStartTime: 0
-  abcEndTime: 0.8333333333333334
+  abcEndTime: 0.5333333333333333
   startTime: 0
-  endTime: 0.8333333333333334
+  endTime: 0.5333333333333333
   importWarning: 
   varyingTopologyMeshNames: []
   splittingMeshNames: []
