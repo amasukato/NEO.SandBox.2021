@@ -248,20 +248,22 @@ public class CharController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
-                GetComponent<HUD>().Damage(1);
+            GetComponent<HUD>().Damage(1);
 
-                // VFX GetHit here
-                GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
-                GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
 
-                if (HitPoints <= 0)
-                {
+            // VFX GetHit here
+            GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
+            GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
+            FindObjectOfType<AudioManager>().Play("PlayerGetHIt");
 
-                }
-                else
-                {
+            if (HitPoints <= 0)
+            {
 
-                }
+            }
+            else
+            {
+
+            }
 
         }
     }

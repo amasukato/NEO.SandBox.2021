@@ -63,7 +63,8 @@ public class ComboAttack : MonoBehaviour
             else if (SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_1 0");
-                PlayerAnim.Play("Standing 1H Magic Attack 01 0");
+                PlayerAnim.Play("combo01bis");
+                FindObjectOfType<AudioManager>().Play("PlayerChainAttack01");
                 comboStep = 1;
                 return;
             }
@@ -97,7 +98,8 @@ public class ComboAttack : MonoBehaviour
             else if ( SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_2 0");
-                PlayerAnim.Play("Standing Melee Attack 360 High 0");
+                PlayerAnim.Play("combo02bis");
+                FindObjectOfType<AudioManager>().Play("PlayerChainAttack02");
             }
             Player.PlayerState = CharController.State.IdleRecovery;
 
@@ -112,7 +114,8 @@ public class ComboAttack : MonoBehaviour
             else if (SubWeaponActive == true)
             {
                 SubWeaponAnim.Play("chaine_3 0");
-                PlayerAnim.Play("Sword And Shield Slash 0");
+                PlayerAnim.Play("combo03bis");
+                FindObjectOfType<AudioManager>().Play("PlayerChainAttack03");
             }
             Player.PlayerState = CharController.State.IdleRecovery;
         }
