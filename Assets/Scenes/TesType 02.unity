@@ -19178,8 +19178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: ArenaTheme
-    clip: {fileID: 8300000, guid: 5d4138a4baab9f741be09851b293bdf6, type: 3}
-    volume: 0.35
+    clip: {fileID: 8300000, guid: 36219ea0f4722154087501afb5dbe27f, type: 3}
+    volume: 1
     pitch: 1
     spatialblend: 0
     loop: 1
