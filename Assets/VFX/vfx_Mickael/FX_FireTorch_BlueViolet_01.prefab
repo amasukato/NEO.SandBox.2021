@@ -23910,7 +23910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 165889585623433743}
   m_Layer: 0
-  m_Name: FX_Torche_BleuViolet
+  m_Name: FX_FireTorch_BlueViolet_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
