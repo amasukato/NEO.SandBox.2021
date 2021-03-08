@@ -18,6 +18,10 @@ public class CharController : MonoBehaviour
     [SerializeField] private Object PlayerDeadRef;
     [SerializeField] private Object SpecialAttackRef;
 
+    private SkinnedMeshRenderer smr;
+    private Material DefaultMat;
+    private Material WhiteMat;
+
     [Header("Stats")]
     public float HitPoints;
     public float MaxHitPoints;
@@ -44,8 +48,6 @@ public class CharController : MonoBehaviour
     private float turnSmoothVelocity;
     public Vector3 movDir;
 
-    public Image dashIMG;
-
     public State PlayerState = State.Idle;
 
     public enum State
@@ -66,6 +68,9 @@ public class CharController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim1 = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
+        smr = GetComponentInChildren<SkinnedMeshRenderer>();
+        DefaultMat = smr.material;
+        WhiteMat = Resources.Load("White", typeof(Material)) as Material;
 
 
     }
@@ -135,6 +140,7 @@ public class CharController : MonoBehaviour
 
 
         movDir.y += gravity * Time.deltaTime;
+        controller.Move(movDir * Time.deltaTime);
 
         dashCD -= Time.deltaTime;
 
@@ -249,7 +255,7 @@ public class CharController : MonoBehaviour
         {
             GetComponent<HUD>().Damage(1);
 
-
+            smr.material = WhiteMat;
             // VFX GetHit here
             GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
             GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
@@ -261,10 +267,15 @@ public class CharController : MonoBehaviour
             }
             else
             {
-
+                Invoke("ResetMaterial", .3f);
             }
 
         }
+    }
+
+    private void ResetMaterial()
+    {
+        smr.material = DefaultMat;
     }
     public void TakeDamage(float damage)
     {
