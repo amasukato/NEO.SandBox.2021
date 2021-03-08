@@ -17,34 +17,33 @@ public class CharController : MonoBehaviour
     [SerializeField] private Object GetHitRef;
     [SerializeField] private Object PlayerDeadRef;
     [SerializeField] private Object SpecialAttackRef;
-    private SkillPoint skill;
 
-
-    //Stats
+    [Header("Stats")]
     public float HitPoints;
     public float MaxHitPoints;
     public float ManaPoints;
     public float MaxManaPoints;
 
-    private float gravity = -9.81f;
-    public float moveSpeed = 4f;
-    private float dashSpeed = 20;
+
+    [Header("Dash")]
+    public float dashSpeed = 50;
     public float dashTime = 0.25f;
     public float dashCD = 0.3f;
     public float dashMaxCD = 0.5f;
 
-    //States
-
+    //Detector
     public Transform groundCheck;
     private float groundDistance = 0.4f;
     public LayerMask groundMask;
     private bool IsOnTheGround;
 
+    // Base Mouvement
+    private float gravity = -9.81f;
+    public float moveSpeed = 4f;
     public float turnSmoothTime = 0.2f;
-    float turnSmoothVelocity;
-
-    // Dash & Movement
+    private float turnSmoothVelocity;
     public Vector3 movDir;
+
     public Image dashIMG;
 
     public State PlayerState = State.Idle;

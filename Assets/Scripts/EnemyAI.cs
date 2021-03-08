@@ -19,15 +19,15 @@ public class EnemyAI : MonoBehaviour
     public EnemyState currentState;
 
     [HideInInspector] public NavMeshAgent agent;
-    //[HideInInspector] public Combatant stats;
-    [HideInInspector] public Combatant attacker;
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
 
     [SerializeField] private Material matWhite;
     private Material matDefault;
+    private Material SkinDefault;
     public Object explosionRef;
     MeshRenderer mr;
+    SkinnedMeshRenderer smr;
 
     public Transform player;
 
@@ -38,20 +38,24 @@ public class EnemyAI : MonoBehaviour
     public static event EnemyKilled OnEnemyKilled;
 
     //Stats
+    [Header("Stats")]
     public float HitPoints = 3;
     public float MaxHitPoints;
     
     // Patroling
+    [Header("Patrol")]
     public Vector3 walkPoint;
     public bool walkPointSet;
     public float walkPointRange;
     public float DistanceToRunaway = 10f;
 
     //Attacking
+    [Header("Attack")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
     // StateRange
+    [Header("Range")]
     public float sightRange, attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
 
@@ -68,11 +72,12 @@ public class EnemyAI : MonoBehaviour
         //stats = GetComponent<Combatant>();
         anim = GetComponentInChildren<Animator>();
         mr = GetComponent<MeshRenderer>();
+        smr = GetComponentInChildren<SkinnedMeshRenderer>();
         //matWhite = Resources.Load("White", typeof(Material)) as Material;
         matDefault = mr.material;
+        SkinDefault = smr.material;
 
         //explosionRef = Resources.Load("Explosion");
-        //stats.TakeDamage += Knockback;
     }
 
     void Update()
@@ -82,37 +87,50 @@ public class EnemyAI : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatISPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatISPlayer);
 
-        if ( HitPoints >= 25/100 * MaxHitPoints)
-        {
-            if (!playerInSightRange && !playerInAttackRange) Patroling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();
-        }
-        else
-        {
-            Runaway();
-        }
 
+        if (!playerInSightRange && !playerInAttackRange) Patroling();
+        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        
     }
 
     private void Patroling()
     {
 
-        if (!walkPointSet) SearchWalkPoint();
+        if (!walkPointSet)
+        {
+            anim.SetTrigger("Search");
+            StartCoroutine(SearchWalkPoint());
+
+        }
 
         if (walkPointSet)
+        {
+            anim.SetTrigger("Walk");
+
+
             agent.SetDestination(walkPoint);
+
+        }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 0.5f)
+        {
             walkPointSet = false;
+
+        }
+
+
     }
 
-    private void SearchWalkPoint()
+    IEnumerator SearchWalkPoint()
     {
+        agent.SetDestination(transform.position);
 
+        yield return new WaitForSeconds(4f);
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -120,14 +138,20 @@ public class EnemyAI : MonoBehaviour
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        {
             walkPointSet = true;
+
+        }
+
 
     }
 
     private void ChasePlayer()
     {
+        anim.SetTrigger("Walk");
 
         agent.SetDestination(player.position);
+
 
     }
 
@@ -165,10 +189,12 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack Code
-            anim.SetTrigger("Swing");
+            //anim.SetTrigger("Swing");
+            anim.Play("Attack");
+
             ///End Attack code
 
-            timeBetweenAttacks = Random.Range(3, 8);
+            timeBetweenAttacks = Random.Range(4, 10);
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -177,9 +203,10 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void ResetAttack()
+    public void ResetAttack()
     {
         alreadyAttacked = false;
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -188,6 +215,8 @@ public class EnemyAI : MonoBehaviour
         {
             HitPoints--;
             mr.material = matWhite;
+
+            smr.material = matWhite;
 
             if (HitPoints <= 0)
             {
@@ -205,6 +234,7 @@ public class EnemyAI : MonoBehaviour
     private void ResetMaterial()
     {
         mr.material = matDefault;
+        smr.material = SkinDefault;
     }
 
     public void TakeDamage(float damage)
@@ -212,7 +242,6 @@ public class EnemyAI : MonoBehaviour
         HitPoints -= damage;
 
     }
-
     
     public void Dead()
     {
