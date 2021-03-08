@@ -56,7 +56,8 @@ public class EnemyAI : MonoBehaviour
 
     // StateRange
     [Header("Range")]
-    public float sightRange, attackRange;
+    public float sightRange; 
+    public float attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
 
     private void Awake()
