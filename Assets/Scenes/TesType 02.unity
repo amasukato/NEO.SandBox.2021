@@ -6296,6 +6296,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135798573}
   m_Mesh: {fileID: 836745799}
+--- !u!224 &139566368 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8686531614746491811, guid: 10cf92b30f14a9b48bef64701dd3c5be,
+    type: 3}
+  m_PrefabInstance: {fileID: 212093958680150930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143455995
 GameObject:
   m_ObjectHideFlags: 0
@@ -19180,29 +19186,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: ArenaTheme
-    clip: {fileID: 8300000, guid: 5d4138a4baab9f741be09851b293bdf6, type: 3}
-    volume: 0.35
+    clip: {fileID: 8300000, guid: 2b2466a0b75d561458d824575192e485, type: 3}
+    volume: 0.5
     pitch: 1
     spatialblend: 0
     loop: 1
     source: {fileID: 0}
   - name: PlayerSwordAttack01
     clip: {fileID: 8300000, guid: a8aa8bec8dbf31c48b60cbca7a9f775a, type: 3}
-    volume: 0.65
+    volume: 0.35
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerSwordAttack02
     clip: {fileID: 8300000, guid: 72306f1250a6b30428b3ba4d364eee4d, type: 3}
-    volume: 0.75
+    volume: 0.45
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerSwordAttack03
     clip: {fileID: 8300000, guid: 6b0a723fdb199d242a22619fc8a410ef, type: 3}
-    volume: 0.85
+    volume: 0.7
     pitch: 1
     spatialblend: 0
     loop: 0
@@ -19216,14 +19222,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Broken_Vase
     clip: {fileID: 8300000, guid: 09683c5c46113f2409781672b17f5a2c, type: 3}
-    volume: 0.75
+    volume: 0.5
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: Broken_Wall
     clip: {fileID: 8300000, guid: 81575b35347da0140b9a292afc3d55ea, type: 3}
-    volume: 0.78
+    volume: 0.7
     pitch: 1
     spatialblend: 0
     loop: 0
@@ -19265,42 +19271,42 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: HitRock
     clip: {fileID: 8300000, guid: 0924f86623022f14f8c94e3072556e67, type: 3}
-    volume: 0.58
+    volume: 0.6
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: Enemy_Dead
     clip: {fileID: 8300000, guid: d9bc53c46e91fcc4ebb03f5a53eca5f4, type: 3}
-    volume: 0.34
+    volume: 0.35
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerChainAttack01
     clip: {fileID: 8300000, guid: c7f668bf37e86ca47b68eb941d025cca, type: 3}
-    volume: 0.65
+    volume: 0.35
     pitch: 1.03
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerChainAttack02
     clip: {fileID: 8300000, guid: c7f668bf37e86ca47b68eb941d025cca, type: 3}
-    volume: 0.75
+    volume: 0.45
     pitch: 0.78
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerChainAttack03
     clip: {fileID: 8300000, guid: 0e8d745661b54534cbdcb1d894335446, type: 3}
-    volume: 0.85
+    volume: 0.7
     pitch: 1
     spatialblend: 0
     loop: 0
     source: {fileID: 0}
   - name: PlayerGetHIt
     clip: {fileID: 8300000, guid: 7c842e9cdc4264a499c690efa8b6de7f, type: 3}
-    volume: 0.55
+    volume: 0.3
     pitch: 1
     spatialblend: 0
     loop: 0
@@ -22558,7 +22564,7 @@ MonoBehaviour:
   totalTime: 120
   CountdownText: {fileID: 101505073}
   EnemyCountText: {fileID: 1058549609}
-  PauseMenuUI: {fileID: 737956086}
+  PauseMenuUI: {fileID: 0}
   GameOverMenuUI: {fileID: 1755654002}
   ChainActive: {fileID: 775966052}
   dashImage: {fileID: 1979712474}
@@ -22648,7 +22654,7 @@ RectTransform:
   - {fileID: 324142742}
   - {fileID: 419280864}
   - {fileID: 775966051}
-  - {fileID: 737956089}
+  - {fileID: 139566368}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31645,18 +31651,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &737956086 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 212093958004626276, guid: 10cf92b30f14a9b48bef64701dd3c5be,
-    type: 3}
-  m_PrefabInstance: {fileID: 212093958680150930}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &737956089 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 212093958004626283, guid: 10cf92b30f14a9b48bef64701dd3c5be,
-    type: 3}
-  m_PrefabInstance: {fileID: 212093958680150930}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &740523006
 GameObject:
   m_ObjectHideFlags: 0
@@ -87728,6 +87722,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686531614746491811, guid: 10cf92b30f14a9b48bef64701dd3c5be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10cf92b30f14a9b48bef64701dd3c5be, type: 3}
