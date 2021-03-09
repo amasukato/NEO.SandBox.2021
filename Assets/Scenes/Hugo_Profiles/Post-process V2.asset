@@ -27,15 +27,15 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.351
+    value: 0.401
   smoothness:
     overrideState: 1
     value: 1
   roundness:
-    overrideState: 0
+    overrideState: 1
     value: 1
   rounded:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mask:
     overrideState: 0
@@ -44,6 +44,60 @@ MonoBehaviour:
   opacity:
     overrideState: 0
     value: 1
+--- !u!114 &-3301218394857590964
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  intensity:
+    overrideState: 1
+    value: 0.499
+  fastMode:
+    overrideState: 1
+    value: 1
+--- !u!114 &-2161453258869394066
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
+  m_Name: Grain
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  colored:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.782
+  size:
+    overrideState: 1
+    value: 0.75
+  lumContrib:
+    overrideState: 0
+    value: 0.898
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +114,9 @@ MonoBehaviour:
   - {fileID: -5607852062331439125}
   - {fileID: 5537386694100739496}
   - {fileID: 3670585540934616093}
+  - {fileID: 8603632909914062738}
+  - {fileID: -2161453258869394066}
+  - {fileID: -3301218394857590964}
 --- !u!114 &3670585540934616093
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -78,19 +135,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 15.8
+    value: 9.04
   threshold:
     overrideState: 0
-    value: 1
+    value: 2.16
   softKnee:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.208
   clamp:
     overrideState: 0
-    value: 65472
+    value: 65480.67
   diffusion:
     overrideState: 1
-    value: 6.04
+    value: 7.23
   anamorphicRatio:
     overrideState: 0
     value: 0
@@ -98,7 +155,7 @@ MonoBehaviour:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
-    overrideState: 0
+    overrideState: 1
     value: 0
   dirtTexture:
     overrideState: 0
@@ -166,13 +223,13 @@ MonoBehaviour:
     value: 0
   colorFilter:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 0.24122243, g: 0.21345524, b: 0.06713266, a: 1}
   hueShift:
     overrideState: 0
-    value: 0
+    value: 18
   saturation:
-    overrideState: 0
-    value: -8
+    overrideState: 1
+    value: 32
   brightness:
     overrideState: 0
     value: 0
@@ -181,7 +238,7 @@ MonoBehaviour:
     value: 2.58
   contrast:
     overrideState: 1
-    value: -30
+    value: -52
   mixerRedOutRedIn:
     overrideState: 0
     value: 109
@@ -192,32 +249,32 @@ MonoBehaviour:
     overrideState: 0
     value: -70
   mixerGreenOutRedIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 7
   mixerGreenOutGreenIn:
     overrideState: 0
     value: 99.76
   mixerGreenOutBlueIn:
     overrideState: 1
-    value: 6
+    value: 150
   mixerBlueOutRedIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -13
   mixerBlueOutGreenIn:
     overrideState: 0
-    value: 0
+    value: -11
   mixerBlueOutBlueIn:
-    overrideState: 0
-    value: 122
+    overrideState: 1
+    value: 200
   lift:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: -0.12711865}
+    overrideState: 1
+    value: {x: 0.9279518, y: 0.8010072, z: 1, w: -0.12711865}
   gamma:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0.021186443}
+    overrideState: 1
+    value: {x: 0.85114896, y: 0.8062275, z: 1, w: 0.021186443}
   gain:
     overrideState: 1
-    value: {x: 1, y: 0.5581852, z: 0.8153171, w: 0.16949147}
+    value: {x: 1, y: 0.6040462, z: 0.93357974, w: -0.23933932}
   masterCurve:
     overrideState: 0
     value:
@@ -1418,3 +1475,25 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &8603632909914062738
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 0
+  shutterAngle:
+    overrideState: 1
+    value: 360
+  sampleCount:
+    overrideState: 1
+    value: 32
