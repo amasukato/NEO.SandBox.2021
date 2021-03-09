@@ -10,9 +10,13 @@ public class ComboAttack : MonoBehaviour
 
     public CharController Player;
 
+
     [SerializeField] private bool SubWeaponActive;
     [SerializeField] private bool comboPossible;
     [SerializeField] private int comboStep;
+
+    public Collider[] attackHitboxes;
+
 
     public void Start()
     {

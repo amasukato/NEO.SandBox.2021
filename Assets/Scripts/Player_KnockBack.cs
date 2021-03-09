@@ -9,8 +9,6 @@ public class Player_KnockBack : MonoBehaviour
     public float knockTime;
     //public CameraController cameraShake;
 
-    private EnemyAI Enemy;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -18,8 +16,7 @@ public class Player_KnockBack : MonoBehaviour
             Rigidbody enemy = other.gameObject.GetComponent<Rigidbody>();
             if (enemy != null)
             {
-                Enemy =  enemy.GetComponent<EnemyAI>();
-                Enemy.currentState = EnemyAI.EnemyState.knockback;
+                enemy.GetComponent<EnemyAI>().currentState = EnemyState.knockback;
                 enemy.isKinematic = false;
                 Vector3 difference = enemy.transform.position - transform.position;
                 difference = difference.normalized * thrust;
@@ -38,8 +35,7 @@ public class Player_KnockBack : MonoBehaviour
         {
             enemy.velocity = Vector3.zero;
             enemy.isKinematic = true;
-            Enemy = enemy.GetComponent<EnemyAI>();
-            Enemy.currentState = EnemyAI.EnemyState.idle;
+            enemy.GetComponent<EnemyAI>().currentState = EnemyState.idle;
         }
 
     }
