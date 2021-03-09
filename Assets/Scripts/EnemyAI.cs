@@ -4,19 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public enum EnemyState
-{
-    idle,
-    Chasing,
-    Attacking,
-    Runaway,
-    GetHit,
-    knockback,
-}
+
 
 public class EnemyAI : MonoBehaviour
 {
-    public EnemyState currentState;
+
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public Animator anim;
@@ -60,12 +52,27 @@ public class EnemyAI : MonoBehaviour
     public float attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
 
+    public EnemyState currentState = EnemyState.idle;
+
+    public enum EnemyState
+    {
+        idle,
+        Searching,
+        Patroling,
+        Chasing,
+        Attacking,
+        Runaway,
+        GetHit,
+        knockback,
+    }
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
     }
+
 
     private void Start()
     {
@@ -88,12 +95,36 @@ public class EnemyAI : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatISPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatISPlayer);
 
-
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        
+        /*
+        switch (currentState)
+        {
+            default:
+            case EnemyState.idle:
+
+
+
+                break;
+            case EnemyState.Searching:
+                break;
+            case EnemyState.Patroling:
+                break;
+            case EnemyState.Attacking:
+                break;
+            case EnemyState.Chasing:
+                break;
+            case EnemyState.knockback:
+                break;
+            case EnemyState.GetHit:
+                break;
+            case EnemyState.Runaway:
+                break;
+        }
+
+    */
     }
 
     private void Patroling()

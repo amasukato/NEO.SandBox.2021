@@ -140,7 +140,7 @@ public class CharController : MonoBehaviour
 
 
         movDir.y += gravity * Time.deltaTime;
-        controller.Move(movDir * Time.deltaTime);
+        //controller.Move(movDir * Time.deltaTime);
 
         dashCD -= Time.deltaTime;
 

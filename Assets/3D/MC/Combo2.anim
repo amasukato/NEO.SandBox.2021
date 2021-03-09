@@ -35570,7 +35570,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.68333334
+  - time: 0.65
     functionName: Combo
     data: 
     objectReferenceParameter: {fileID: 0}
