@@ -8,13 +8,15 @@ public class ManaBarRaw : MonoBehaviour {
 
     private Mana mana;
     //private Image ManaBar;
+    
     private RawImage RawManaBar;
 
 
     private void Awake()
     {
         //ManaBar = transform.Find("RawManaBar").GetComponent<Image>();
-        RawManaBar = transform.Find("RawManaBar").GetComponent<RawImage>();
+        
+        RawManaBar = transform.Find("RawManaBarMask").Find("RawManaBar").GetComponent<RawImage>();
 
         mana = new Mana();
 
@@ -28,6 +30,7 @@ public class ManaBarRaw : MonoBehaviour {
         Rect uvRect = RawManaBar.uvRect;
         uvRect.x -= .5f * Time.deltaTime;
         RawManaBar.uvRect = uvRect;
+
     }
 
     
