@@ -424,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7591466762725466324}
   - component: {fileID: 4821072236942466510}
-  - component: {fileID: 4387385381773074826}
+  - component: {fileID: 3199480309313936068}
   m_Layer: 5
   m_Name: RawManaBar
   m_TagString: Untagged
@@ -459,7 +459,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4694150800641024138}
   m_CullTransparentMesh: 0
---- !u!114 &4387385381773074826
+--- !u!114 &3199480309313936068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.36565503, g: 0.9339623, b: 0.917767, a: 1}
+  m_Color: {r: 0.33490568, g: 0.97473556, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
