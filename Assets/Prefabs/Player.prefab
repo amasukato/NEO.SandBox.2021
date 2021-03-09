@@ -711,7 +711,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
+  m_Radius: 0.5000001
   m_Height: 3.506692
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0.75334597, z: -0.00000011920929}
@@ -783,6 +783,7 @@ MonoBehaviour:
   moveSpeed: 12
   turnSmoothTime: 0.1
   movDir: {x: 0, y: 0, z: 0}
+  dashIMG: {fileID: 0}
   PlayerState: 0
 --- !u!114 &6966686344829320884
 MonoBehaviour:

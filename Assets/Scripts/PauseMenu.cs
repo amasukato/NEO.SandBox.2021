@@ -78,7 +78,6 @@ public class PauseMenu : MonoBehaviour
         }
 
         // Enemy Counter
-        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         EnemyCountText.text = enemies.Length.ToString() + " Enemies left ";

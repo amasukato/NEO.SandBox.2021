@@ -48,8 +48,7 @@ public class EnemyAI : MonoBehaviour
 
     // StateRange
     [Header("Range")]
-    public float sightRange; 
-    public float attackRange;
+    public float sightRange, attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
 
     public EnemyState currentState = EnemyState.idle;
