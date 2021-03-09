@@ -17,11 +17,12 @@ public class Player_KnockBack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.GetComponent<EnemyAI>().currentState = EnemyState.knockback;
+                enemy.GetComponent<EnemyAI>().knockbackTime = knockTime;
                 enemy.isKinematic = false;
                 Vector3 difference = enemy.transform.position - transform.position;
                 difference = difference.normalized * thrust;
                 enemy.AddForce(difference, ForceMode.Impulse);
-                StartCoroutine(KnockCO(enemy));
+                //StartCoroutine(KnockCO(enemy));
 
                 //StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
             }

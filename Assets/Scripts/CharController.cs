@@ -13,7 +13,6 @@ public class CharController : MonoBehaviour
 
     //Effect
     [SerializeField] private Animator anim1;
-    [SerializeField] private Object DashRef;
     [SerializeField] private Object GetHitRef;
     [SerializeField] private Object PlayerDeadRef;
     [SerializeField] private Object SpecialAttackRef;
@@ -140,7 +139,7 @@ public class CharController : MonoBehaviour
 
 
         movDir.y += gravity * Time.deltaTime;
-        controller.Move(movDir * Time.deltaTime);
+        //controller.Move(movDir * Time.deltaTime);
 
         dashCD -= Time.deltaTime;
 
@@ -219,11 +218,7 @@ public class CharController : MonoBehaviour
 
             if (dashCD <= 0)
             {
-                //GameObject DashVFX = (GameObject)Instantiate(DashRef);
-                //DashVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
-
                 StartCoroutine(Dash());
-
                 //FindObjectOfType<AudioManager>().Play("PlayerDash");
                 PlayerState = State.Dashing;
             }

@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public enum EnemyState
 {
     idle,
+    Searching,
     Chasing,
+    Patroling,
     Attacking,
     Runaway,
     GetHit,
@@ -49,10 +51,14 @@ public class EnemyAI : MonoBehaviour
     public float walkPointRange;
     public float DistanceToRunaway = 10f;
 
+
     //Attacking
     [Header("Attack")]
-    public float timeBetweenAttacks;
+    private float timeBetweenAttacks = 1.5f;
+    public float timeBetweenAttacksMIN;
+    public float timeBetweenAttacksMAX;
     bool alreadyAttacked;
+    public float knockbackTime;
 
     // StateRange
     [Header("Range")]
@@ -89,11 +95,38 @@ public class EnemyAI : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatISPlayer);
 
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        
+
+        switch (currentState)
+        {
+            default:
+            case EnemyState.idle:
+
+                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+                if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+
+                break;
+            case EnemyState.Attacking:
+                break;
+            case EnemyState.Chasing:
+                break;
+            case EnemyState.GetHit:
+                break;
+            case EnemyState.knockback:
+
+                StartCoroutine(KnockBacked());
+                break;
+            case EnemyState.Runaway:
+                Runaway();
+                break;
+            case EnemyState.Patroling:
+                break;
+            case EnemyState.Searching:
+                break;
+        }
+
     }
 
     private void Patroling()
@@ -171,11 +204,11 @@ public class EnemyAI : MonoBehaviour
                 agent.SetDestination(newPos);
             }
             RunAway = true;
+            currentState = EnemyState.Runaway;
         }
         else
         {
-            ChasePlayer();
-            if (playerInSightRange && playerInAttackRange) AttackPlayer();
+            currentState = EnemyState.idle;
         }
 
     }
@@ -195,18 +228,32 @@ public class EnemyAI : MonoBehaviour
 
             ///End Attack code
 
-            timeBetweenAttacks = Random.Range(4, 10);
+            //timeBetweenAttacks = Random.Range(timeBetweenAttacksMIN, timeBetweenAttacksMAX);
 
             alreadyAttacked = true;
+
+            currentState = EnemyState.Attacking;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            //StartCoroutine(ResetAttacking());
+
         }
 
 
     }
 
+    IEnumerator ResetAttacking()
+    {
+        currentState = EnemyState.idle;
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        alreadyAttacked = false;
+        currentState = EnemyState.idle;
+    }
+
     public void ResetAttack()
     {
         alreadyAttacked = false;
+        currentState = EnemyState.idle;
 
     }
 
@@ -214,10 +261,14 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerHitBox"))
         {
+            anim.Play("GetHit");
+
             HitPoints--;
             mr.material = matWhite;
 
             smr.material = matWhite;
+
+
 
             if (HitPoints <= 0)
             {
@@ -230,6 +281,16 @@ public class EnemyAI : MonoBehaviour
 
 
         }
+    }
+
+    IEnumerator KnockBacked()
+    {
+        yield return new WaitForSeconds(knockbackTime);
+
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+
+        currentState = EnemyState.idle;
     }
 
     private void ResetMaterial()
@@ -247,6 +308,8 @@ public class EnemyAI : MonoBehaviour
     public void Dead()
     {
         //play dead_animation here
+        anim.Play("GetHit");
+
         FindObjectOfType<AudioManager>().Play("Enemy_Dead");
 
         GameObject explosion = (GameObject)Instantiate(explosionRef);
