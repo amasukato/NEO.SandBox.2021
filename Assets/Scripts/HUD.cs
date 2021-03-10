@@ -59,7 +59,7 @@ public class HUD : MonoBehaviour
 
     void ManaBarFilter()
     {
-        ManaBar.fillAmount = Mathf.Lerp(ManaBar.fillAmount, mana / maxMana, lerpSpeed);
+       // ManaBar.fillAmount = Mathf.Lerp(ManaBar.fillAmount, mana / maxMana, lerpSpeed);
     }
 
     void ColorChanger()
