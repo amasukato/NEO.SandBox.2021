@@ -10,6 +10,9 @@ public class HUD : MonoBehaviour
     public Image healthBar;
 
     public Image ManaBar;
+    public RawImage AnimatedManaBar;
+    public RectTransform barMaskRectTransform;
+    private float barMaskWidth;
 
     public CharController charController;
 
@@ -30,6 +33,8 @@ public class HUD : MonoBehaviour
         maxMana = GetComponent<CharController>().MaxManaPoints;
         mana = maxMana;
 
+        barMaskWidth = barMaskRectTransform.sizeDelta.x;
+
         charController = GetComponent<CharController>();
 
     }
@@ -46,8 +51,8 @@ public class HUD : MonoBehaviour
         HealthBarFilter();
         ColorChanger();
 
-        ManaBarFilter();
-
+        //ManaBarFilter();
+        AnimatedManaBarFiller();
     }
 
     void HealthBarFilter()
@@ -59,7 +64,18 @@ public class HUD : MonoBehaviour
 
     void ManaBarFilter()
     {
-       // ManaBar.fillAmount = Mathf.Lerp(ManaBar.fillAmount, mana / maxMana, lerpSpeed);
+        ManaBar.fillAmount = Mathf.Lerp(ManaBar.fillAmount, mana / maxMana, lerpSpeed);
+    }
+
+    void AnimatedManaBarFiller()
+    {
+        Rect uvRect = AnimatedManaBar.uvRect;
+        uvRect.x += 0.5f * Time.deltaTime;
+        AnimatedManaBar.uvRect = uvRect;
+
+        Vector2 barMaskSizeDelta = barMaskRectTransform.sizeDelta;
+        barMaskSizeDelta.x = GetManaNormalized() * barMaskWidth;
+        barMaskRectTransform.sizeDelta = barMaskSizeDelta;
     }
 
     void ColorChanger()
@@ -107,5 +123,11 @@ public class HUD : MonoBehaviour
 
     }
 
+    public float GetManaNormalized()
+    {
+        return mana / maxMana;
+    }
 
 }
+
+

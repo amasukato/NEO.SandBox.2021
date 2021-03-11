@@ -9939,7 +9939,7 @@ MonoBehaviour:
   timeBetweenAttacksMIN: 4
   timeBetweenAttacksMAX: 6
   knockbackTime: 0
-  Attacker: 0
+  Attacker: 1
   Caster: 0
   Summoner: 0
   EnemyPrefab: {fileID: 0}

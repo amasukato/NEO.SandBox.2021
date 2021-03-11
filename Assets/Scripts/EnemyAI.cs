@@ -56,17 +56,12 @@ public class EnemyAI : MonoBehaviour
     [Header("Attack")]
 
     public bool SetRandomTBA;
-    private float timeBetweenAttacks = 1.5f;
+    public float timeBetweenAttacks = 1.5f;
     public float timeBetweenAttacksMIN;
     public float timeBetweenAttacksMAX;
     bool alreadyAttacked;
     public float knockbackTime;
     public bool Attacker, Caster, Summoner;
-
-    //Summoning
-    public GameObject EnemyPrefab;
-    public Transform[] EnemyPos;
-
 
     // StateRange
     [Header("Range")]
@@ -128,8 +123,9 @@ public class EnemyAI : MonoBehaviour
                 StartCoroutine(KnockBacked());
                 break;
             case EnemyState.Runaway:
-                Runaway();
-                Summon();
+                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                if (playerInSightRange) Runaway();
+                //if (playerInAttackRange) AttackPlayer();
                 break;
             case EnemyState.Patroling:
                 break;
@@ -137,6 +133,11 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
 
+    }
+
+     private void LateUpdate()
+    {
+        if (currentState == EnemyState.Runaway && playerInAttackRange) AttackPlayer();
     }
 
     private void Patroling()
@@ -199,8 +200,9 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void Runaway()
+    public void Runaway()
     {
+
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < DistanceToRunaway)
@@ -210,9 +212,11 @@ public class EnemyAI : MonoBehaviour
             Vector3 newPos = transform.position + distanceToPlayer;
 
             agent.SetDestination(newPos);
+            anim.SetTrigger("Walk");
         }
         RunAway = true;
         currentState = EnemyState.Runaway;
+
 
     }
 
@@ -253,20 +257,15 @@ public class EnemyAI : MonoBehaviour
             //StartCoroutine(ResetAttacking());
             if (Summoner == true)
             {
-                InvokeRepeating("Summon", 0.5f, timeBetweenAttacks);
+                anim.Play("Summon");
                 alreadyAttacked = true;
-                currentState = EnemyState.Attacking;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                currentState = EnemyState.Runaway;
             }
         }
 
     }
 
-    private void Summon()
-    {
-        int randomNum = Mathf.RoundToInt(Random.Range(0f, EnemyPos.Length - 1));
-
-        Instantiate(EnemyPrefab, EnemyPos[randomNum].position, EnemyPos[randomNum].rotation);
-    }
 
     IEnumerator ResetAttacking()
     {
@@ -279,7 +278,15 @@ public class EnemyAI : MonoBehaviour
     public void ResetAttack()
     {
         alreadyAttacked = false;
-        currentState = EnemyState.idle;
+        if (!Summoner)
+        {
+            currentState = EnemyState.idle;
+        }
+        else
+        {
+            currentState = EnemyState.Runaway;
+        }
+
 
     }
 
