@@ -448,7 +448,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6611504, g: 0.15686274, b: 0.99607843, a: 1}
+      maxColor: {r: 1, g: 0.009791803, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
@@ -5295,7 +5295,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6611504, g: 0.15686274, b: 0.99607843, a: 1}
+      maxColor: {r: 0.99607843, g: 0.21549907, b: 0.15686274, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0}
@@ -9843,7 +9843,7 @@ GameObject:
   - component: {fileID: 6543032907195019030}
   - component: {fileID: 744466798861934954}
   m_Layer: 0
-  m_Name: EnemyArena
+  m_Name: Enemy feu
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9929,7 +9929,7 @@ MonoBehaviour:
   whatISPlayer:
     serializedVersion: 2
     m_Bits: 512
-  HitPoints: 20
+  HitPoints: 5
   MaxHitPoints: 5
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
@@ -10181,6 +10181,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arme_01
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1241e077c0f130d4c8c98dda6425a5aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1241e077c0f130d4c8c98dda6425a5aa, type: 3}
 --- !u!1001 &4900844796437960032
@@ -10254,7 +10259,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ddf2f60771033284cbee830c1fc98f3d, type: 2}
+      objectReference: {fileID: 2100000, guid: 9d148fd7378a9dd4aa9338dfaffbc283, type: 2}
     - target: {fileID: -8520351005060889411, guid: 9c706617265ddaf4a9e31453fc136e34,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10654,7 +10659,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 63de163f01c7dcd43941a8d8ffc683e6, type: 2}
+      objectReference: {fileID: 2100000, guid: c6de94cefec65d34ab255a03ef81cf4c, type: 2}
     - target: {fileID: 3373197664844238778, guid: 9c706617265ddaf4a9e31453fc136e34,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10719,7 +10724,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 70dbaa7e247e7b24f836105008ee62fb, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dc75c9dba064a34c917cd8297c149e7, type: 2}
     - target: {fileID: 6204169937033342801, guid: 9c706617265ddaf4a9e31453fc136e34,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

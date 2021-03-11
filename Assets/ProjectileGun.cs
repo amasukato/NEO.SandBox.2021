@@ -18,8 +18,9 @@ public class ProjectileGun : MonoBehaviour
     int bulletsLeft, bulletsShot;
 
     //Recoil
-    public Rigidbody rb;
-    public float recoilForce;
+    //public Rigidbody rb;
+    //public float recoilForce;
+
 
     //bools
     bool shooting, readyToShoot, reloading;
@@ -37,7 +38,7 @@ public class ProjectileGun : MonoBehaviour
 
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         readyToShoot = false;
 
@@ -77,14 +78,19 @@ public class ProjectileGun : MonoBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * upwardForce, ForceMode.Impulse);
 
+        bulletsLeft--;
+        bulletsShot++;
+
         //Invoke resetShot function ( if not already invoked), with your timeBetweenShooting
         if (allowInvoke)
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
 
+
             //Add recoil to Entity (should only be called once)
-            rb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+            //rb.AddForce(-directionWithSpread.normalized, ForceMode.Impulse);
+
 
         }
 

@@ -254,7 +254,7 @@ public class CharController : MonoBehaviour
             // VFX GetHit here
             GameObject GetHitVFX = (GameObject)Instantiate(GetHitRef);
             GetHitVFX.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
-            FindObjectOfType<AudioManager>().Play("PlayerGetHIt");
+            FindObjectOfType<AudioManager>().Play("PlayerGetHit01");
 
             if (HitPoints <= 0)
             {

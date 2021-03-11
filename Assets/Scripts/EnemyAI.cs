@@ -54,17 +54,26 @@ public class EnemyAI : MonoBehaviour
 
     //Attacking
     [Header("Attack")]
+
+    public bool SetRandomTBA;
     private float timeBetweenAttacks = 1.5f;
     public float timeBetweenAttacksMIN;
     public float timeBetweenAttacksMAX;
     bool alreadyAttacked;
     public float knockbackTime;
+    public bool Attacker, Caster, Summoner;
+
+    //Summoning
+    public GameObject EnemyPrefab;
+    public Transform[] EnemyPos;
+
 
     // StateRange
     [Header("Range")]
     public float sightRange; 
     public float attackRange;
     private bool playerInSightRange, playerInAttackRange, RunAway;
+
 
     private void Awake()
     {
@@ -120,6 +129,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             case EnemyState.Runaway:
                 Runaway();
+                Summon();
                 break;
             case EnemyState.Patroling:
                 break;
@@ -191,25 +201,18 @@ public class EnemyAI : MonoBehaviour
 
     private void Runaway()
     {
-        if (!RunAway)
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance < DistanceToRunaway)
         {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            Vector3 distanceToPlayer = transform.position - player.transform.position;
 
-            if (distance < DistanceToRunaway)
-            {
-                Vector3 distanceToPlayer = transform.position - player.transform.position;
+            Vector3 newPos = transform.position + distanceToPlayer;
 
-                Vector3 newPos = transform.position + distanceToPlayer;
-
-                agent.SetDestination(newPos);
-            }
-            RunAway = true;
-            currentState = EnemyState.Runaway;
+            agent.SetDestination(newPos);
         }
-        else
-        {
-            currentState = EnemyState.idle;
-        }
+        RunAway = true;
+        currentState = EnemyState.Runaway;
 
     }
 
@@ -224,22 +227,45 @@ public class EnemyAI : MonoBehaviour
         {
             ///Attack Code
             //anim.SetTrigger("Swing");
-            anim.Play("Attack");
+            if (Attacker == true || Caster == true)
+            {
+                if (Attacker == true)
+                {
+                    anim.Play("Attack");
+                }
 
-            ///End Attack code
+                if (Caster == true)
+                {
+                    anim.Play("MagicAttack");
+                }
 
-            //timeBetweenAttacks = Random.Range(timeBetweenAttacksMIN, timeBetweenAttacksMAX);
+                if (SetRandomTBA == true)
+                {
+                    timeBetweenAttacks = Random.Range(timeBetweenAttacksMIN, timeBetweenAttacksMAX);
 
-            alreadyAttacked = true;
+                }
 
-            currentState = EnemyState.Attacking;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                alreadyAttacked = true;
+                currentState = EnemyState.Attacking;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
 
             //StartCoroutine(ResetAttacking());
-
+            if (Summoner == true)
+            {
+                InvokeRepeating("Summon", 0.5f, timeBetweenAttacks);
+                alreadyAttacked = true;
+                currentState = EnemyState.Attacking;
+            }
         }
 
+    }
 
+    private void Summon()
+    {
+        int randomNum = Mathf.RoundToInt(Random.Range(0f, EnemyPos.Length - 1));
+
+        Instantiate(EnemyPrefab, EnemyPos[randomNum].position, EnemyPos[randomNum].rotation);
     }
 
     IEnumerator ResetAttacking()
