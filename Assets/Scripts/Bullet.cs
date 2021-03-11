@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
 
         //Count down lifetime
         maxLifetime -= Time.deltaTime;
-        if (maxLifetime <= 0) Explode();
+        if (maxLifetime <= 0) Delay();
 
     }
 

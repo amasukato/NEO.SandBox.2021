@@ -14425,7 +14425,7 @@ MonoBehaviour:
   maxAngleReset: 45
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   lookAt: {x: 0, y: 0, z: 0, w: 0}
-  Damage: 2
+  Damage: 1
   SkullImpactRef: {fileID: 4755011999893699603, guid: 22b5616fd64663347990969d014fdb55,
     type: 3}
 --- !u!136 &1751255651084178867

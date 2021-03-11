@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
 
     public IEnumerator Shake(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.localPosition;
+        Vector3 originalPos = transform.position;
 
         float elapsed = 0f;
 
@@ -49,14 +49,14 @@ public class CameraController : MonoBehaviour
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            transform.localPosition = new Vector3(x, y, originalPos.z);
+            transform.position = new Vector3(x, y, originalPos.z);
 
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = originalPos;
+        transform.position = originalPos;
     }
 
 }

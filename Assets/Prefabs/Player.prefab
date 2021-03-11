@@ -798,7 +798,10 @@ MonoBehaviour:
   healthText: {fileID: 0}
   healthBar: {fileID: 0}
   ManaBar: {fileID: 0}
+  AnimatedManaBar: {fileID: 0}
+  barMaskRectTransform: {fileID: 0}
   charController: {fileID: 0}
+  cameraShake: {fileID: 0}
 --- !u!114 &6966686344829320886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,7 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectHolder: {fileID: 6966686345644571994}
-  ThrowForce: 20
+  ThrowForce: 10
   CarryObject: 0
   Item: {fileID: 0}
   grabDistance: 3
@@ -829,7 +832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439c410755bd61b4d994dbe191c0ce2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugHitPointTransform: {fileID: 0}
   hookshotTransform: {fileID: 6966686343907047411}
   HookshotDistance: 25
   Player: {fileID: 0}

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
+    public CameraController cameraShake;
 
     public float moveSpeed = 4f;
     public float turnSmoothTime = 0.2f;
@@ -57,6 +58,11 @@ public class PlayerController : MonoBehaviour
     private void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
-        GetComponent<ProjectileGun>().Shoot();
+        {
+            GetComponent<ProjectileGun>().Shoot();
+
+            StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
+        }
+
     }
 }

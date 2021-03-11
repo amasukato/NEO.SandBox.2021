@@ -16,8 +16,4 @@ public class Summoning : MonoBehaviour
 
     }
 
-    private void Runaway()
-    {
-        GetComponent<EnemyAI>().Runaway();
-    }
 }

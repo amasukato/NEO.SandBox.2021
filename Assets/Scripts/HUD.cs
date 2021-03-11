@@ -16,6 +16,8 @@ public class HUD : MonoBehaviour
 
     public CharController charController;
 
+    public CameraController cameraShake;
+
     float health; 
     float maxHealth;
 
@@ -51,8 +53,8 @@ public class HUD : MonoBehaviour
         HealthBarFilter();
         ColorChanger();
 
-        //ManaBarFilter();
-        AnimatedManaBarFiller();
+        ManaBarFilter();
+        //AnimatedManaBarFiller();
     }
 
     void HealthBarFilter()
@@ -90,7 +92,8 @@ public class HUD : MonoBehaviour
         if (health > 0 )
         {
             health -= damagePoints;
-            charController.HitPoints -= damagePoints;
+            //charController.HitPoints -= damagePoints;
+
         }
     }
 
@@ -99,7 +102,7 @@ public class HUD : MonoBehaviour
         if (health < maxHealth)
         {
             health += healingPoints;
-            charController.HitPoints += healingPoints;
+            //charController.HitPoints += healingPoints;
         }
     }
 
