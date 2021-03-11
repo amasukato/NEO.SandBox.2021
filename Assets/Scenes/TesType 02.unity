@@ -2048,6 +2048,11 @@ PrefabInstance:
       propertyPath: MaxHitPoints
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6543032907195019032, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: Attacker
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
       propertyPath: m_RootOrder
@@ -10295,6 +10300,11 @@ PrefabInstance:
         type: 3}
       propertyPath: timeBetweenAttacksMAX
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543032907195019032, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: Attacker
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
@@ -48115,6 +48125,11 @@ PrefabInstance:
       propertyPath: MaxHitPoints
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6543032907195019032, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: Attacker
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}
       propertyPath: m_RootOrder
@@ -82189,6 +82204,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxHitPoints
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543032907195019032, guid: 702de338dbf4e714ca1fb950630d0ede,
+        type: 3}
+      propertyPath: Attacker
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6543032907195019036, guid: 702de338dbf4e714ca1fb950630d0ede,
         type: 3}

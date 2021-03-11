@@ -63,7 +63,7 @@ public class Bullet : MonoBehaviour
 
         // Add a liitle delay
 
-        Invoke("Delay", 0.05f);
+        Invoke("Delay", 0.01f);
     }
 
     private void Delay()
@@ -80,7 +80,7 @@ public class Bullet : MonoBehaviour
         collisions++;
 
         // Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Player") && explodeOnTouch) Explode();
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("Ground") && explodeOnTouch) Explode();
     }
 
     private void Setup()
