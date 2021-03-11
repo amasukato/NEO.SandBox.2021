@@ -9,6 +9,7 @@ public class CharController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public CharacterController controller;
+    public CameraController cameraShake;
 
 
     //Effect
@@ -36,7 +37,7 @@ public class CharController : MonoBehaviour
 
     //Detector
     public Transform groundCheck;
-    private float groundDistance = 0.4f;
+    private float groundDistance = 0.3f;
     public LayerMask groundMask;
     private bool IsOnTheGround;
 
@@ -46,6 +47,7 @@ public class CharController : MonoBehaviour
     public float turnSmoothTime = 0.2f;
     private float turnSmoothVelocity;
     public Vector3 movDir;
+    Vector3 velocity;
 
     public State PlayerState = State.Idle;
 
@@ -128,7 +130,7 @@ public class CharController : MonoBehaviour
 
         if(IsOnTheGround && movDir.y <=0)
         {
-            movDir.y = -2f;
+            movDir.y = -10f;
 
         }
 
@@ -138,8 +140,8 @@ public class CharController : MonoBehaviour
         }
 
 
-        movDir.y += gravity * Time.deltaTime;
-        //controller.Move(movDir * Time.deltaTime);
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
         dashCD -= Time.deltaTime;
 
@@ -193,6 +195,7 @@ public class CharController : MonoBehaviour
 
          PlayerState = State.Idle;
          */
+
     }
 
     void SpecialAttack()
@@ -248,7 +251,7 @@ public class CharController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("EnemyHitBox"))
         {
-            GetComponent<HUD>().Damage(1);
+            //GetComponent<HUD>().Damage(1);
 
             smr.material = WhiteMat;
             // VFX GetHit here
@@ -272,6 +275,7 @@ public class CharController : MonoBehaviour
     {
         smr.material = DefaultMat;
     }
+    /*
     public void TakeDamage(float damage)
     {
         HitPoints -= damage;
@@ -282,5 +286,6 @@ public class CharController : MonoBehaviour
     {
         HitPoints += healing;
     }
+    */
 
 }

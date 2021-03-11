@@ -28,6 +28,7 @@ public class Broken : MonoBehaviour
         for (int i = 0; i < rigidbodies.Length; i++)
             rigidbodies[i].constraints = RigidbodyConstraints.None;
 
+
         FindObjectOfType<AudioManager>().Play("Broken_Wall");
 
         Collider col = GetComponent<Collider>();

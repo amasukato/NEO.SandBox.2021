@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HookShot : MonoBehaviour
 {
-    [SerializeField] private Transform DebugHitPointTransform;
+    //[SerializeField] private Transform DebugHitPointTransform;
     [SerializeField] private Transform hookshotTransform;
 
     private CharacterController characterController;
@@ -76,7 +76,7 @@ public class HookShot : MonoBehaviour
                 //Hit something
                 if (raycastHit.collider.CompareTag("HookHolder"))
                 {
-                    DebugHitPointTransform.position = raycastHit.point;
+                    //DebugHitPointTransform.position = raycastHit.point;
                     hookshotPosition = raycastHit.point;
                     hookshotSize = 0f;
                     hookshotTransform.gameObject.SetActive(true);
