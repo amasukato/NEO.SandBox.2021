@@ -13,7 +13,6 @@ TagManager:
   - PlayerHitBox
   - EnemyHitBox
   - RightHand
-  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -26,8 +25,8 @@ TagManager:
   - Ground
   - Player
   - PostProcessing
-  - Bullet
-  - Enemy
+  - 
+  - 
   - 
   - 
   - 

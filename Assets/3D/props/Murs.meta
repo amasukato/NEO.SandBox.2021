@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/3D/props/Murs.meta
 guid: e335eba7406c10d49a78dd1948e40969
+=======
+guid: 2963168485d29004fb050318a7f82cec
+>>>>>>> 79bd2b5d606ee0733b3c04d7be68f64f8e375d15:Assets/MeleeWeaponTrail/Example.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
