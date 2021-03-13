@@ -88557,7 +88557,7 @@ PrefabInstance:
     - target: {fileID: 1735290884549668169, guid: 17373077dae4f9a46be20e7ede9c2bf7,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1829517399274960841, guid: 17373077dae4f9a46be20e7ede9c2bf7,
         type: 3}
@@ -89995,6 +89995,21 @@ PrefabInstance:
         type: 3}
       propertyPath: PauseMenuUI
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301166956383234247, guid: f3b6cd2e1dfa2f84e954a56cba56c925,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301166956383234247, guid: f3b6cd2e1dfa2f84e954a56cba56c925,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301166956383234247, guid: f3b6cd2e1dfa2f84e954a56cba56c925,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 7301166956876263404, guid: f3b6cd2e1dfa2f84e954a56cba56c925,
         type: 3}

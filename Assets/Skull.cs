@@ -49,7 +49,7 @@ public class Skull : MonoBehaviour
             }
         }
     }
-
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -69,7 +69,7 @@ public class Skull : MonoBehaviour
             }
         }
     }
-
+    */
     private void Dead()
     {
         GameObject explosion = (GameObject)Instantiate(SkullImpactRef);
