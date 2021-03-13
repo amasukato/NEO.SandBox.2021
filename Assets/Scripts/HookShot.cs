@@ -15,7 +15,7 @@ public class HookShot : MonoBehaviour
     private State state;
     private Vector3 hookshotPosition;
     private float hookshotSize;
-    private float sphereCastRadius = 0.5f;
+    private float sphereCastRadius = 1.5f;
 
     public CharController Player;
 
